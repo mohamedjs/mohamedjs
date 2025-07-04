@@ -62,8 +62,8 @@ I love learning and experimenting! I've also worked with:
 ### 📫 **Let's Connect**
 
 - **GitHub:** [mohamedjs](https://github.com/mohamedjs)
-- **LinkedIn:** [Your LinkedIn Here]
-- **Email:** [Your Email Here]
+- **LinkedIn:** [mohamed](https://www.linkedin.com/in/mohamed-mahmoud-19ab47122/)
+- **Email:** [mohamed](mohammed_hs552yahoo.com)
 
 ---
 
