@@ -19,6 +19,8 @@ Welcome to my GitHub! I'm a passionate software engineer with a strong foundatio
 
 ### 🌍 **What I Build**
 
+- **Next-Gen Travel Platforms:** Built a revolutionary B2C travel booking platform with a modular Next.js frontend, dynamic theming, and seamless integration of flights, hotels, and services. ✈️
+- **Travel Agency Dashboards:** Developed a comprehensive management system for travel activities, packages, and bookings using Next.js, Redux Toolkit, and Ant Design for a scalable, internationalized UI. 📋
 - **E-commerce Platforms:** Full-stack, event-driven shops with real-time features, modular APIs, and modern UIs (Node.js, React, PostgreSQL, Redis, Docker) 🛒
 - **Admin Dashboards:** Laravel + Vue.js monoliths for business management, analytics, and content control 📊
 - **Real-Time Chat Apps:** Multi-stack chat with file/voice support (Laravel, Node.js, React, Java) 💬

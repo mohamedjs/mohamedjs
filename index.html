@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed - Full-Stack Engineer & Tech Explorer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #00d4ff, #ff00ff);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: rgba(0, 212, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00d4ff, #ff00ff, #00ff88);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: #888;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            border-color: #00d4ff;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .tech-item i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #00d4ff;
+        }
+
+        .sections {
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto 6rem auto;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .section.visible {
+            /* No longer used for animation */
+        }
+
+        .section h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #00d4ff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: #00d4ff;
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .project-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #00d4ff;
+        }
+
+        .project-card p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .contact {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #00d4ff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: #00d4ff;
+            color: #000;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00d4ff;
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Custom styles for TripKlik B2C highlight */
+        .project-card.tripklik {
+            border: 2px solid #00d4ff;
+            box-shadow: 0 0 30px 0 rgba(0,212,255,0.15);
+            background: linear-gradient(120deg, rgba(0,212,255,0.08), rgba(255,255,255,0.01));
+        }
+        .project-card.tripklik h4 {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 1.5rem;
+        }
+        .project-card.tripklik .project-tech {
+            margin-bottom: 1.5rem;
+        }
+        .project-card.tripklik .readme-content {
+            text-align: left;
+            color: #eee;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .project-card.tripklik .readme-content code,
+        .project-card.tripklik .readme-content pre {
+            background: #181c1f;
+            color: #00d4ff;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.95em;
+        }
+        .project-card.tripklik .readme-content ul, 
+        .project-card.tripklik .readme-content ol {
+            margin-left: 1.5em;
+            margin-bottom: 1em;
+        }
+        .project-card.tripklik .readme-content h1,
+        .project-card.tripklik .readme-content h2,
+        .project-card.tripklik .readme-content h3,
+        .project-card.tripklik .readme-content h4 {
+            color: #00d4ff;
+            margin-top: 1.2em;
+            margin-bottom: 0.5em;
+        }
+        .project-card.tripklik .readme-content a {
+            color: #00d4ff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+    <div id="canvas-container"></div>
+    <div class="floating-particles"></div>
+    
+    <div class="content">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Mohamed</h1>
+                <h2>Full-Stack Engineer | Deep Tech Explorer | Open Source Enthusiast</h2>
+                <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2rem;">
+                    Building the future with code, one project at a time 🚀
+                </p>
+                
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <i class="fab fa-laravel"></i>
+                        <div>Laravel</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-php"></i>
+                        <div>PHP</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-node-js"></i>
+                        <div>Node.js</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-js"></i>
+                        <div>JavaScript</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-js"></i>
+                        <div>TypeScript</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-react"></i>
+                        <div>React</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-python"></i>
+                        <div>Python</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-docker"></i>
+                        <div>Docker</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-vuejs"></i>\
+                        <div>Vue.js</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-python"></i>
+                        <div>Flask</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-git-alt"></i>
+                        <div>Git</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="sections">
+            <section class="section" id="projects">
+                <h3>Featured Projects</h3>
+                <div class="projects-grid">
+                    <!-- TripKlik B2C Highlighted Project -->
+                    <div class="project-card featured">
+                        <div class="project-icon">🌍</div>
+                        <h4>TripKlik B2C – Next-Gen Travel Platform</h4>
+                        <p>
+                            A modular, high-scale travel booking platform built as a full SPA with Next.js, featuring dynamic module loading, multi-brand theming, and seamless integration of flights, hotels, visas, and more.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">MySql</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">React.js</span>
+                        </div>
+                    </div>
+                    <!-- End TripKlik B2C Highlighted Project -->
+
+                    <!-- AgentKlik Dashboard System Highlighted Project -->
+                    <div class="project-card featured">
+                        <div class="project-icon">📊</div>
+                        <h4>AgentKlik Dashboard System</h4>
+                        <p>
+                            A modern dashboard system for managing travel activities, packages, bookings, users, providers, and more. Built with Next.js, Redux Toolkit, and Ant Design, it offers a modular, scalable, and internationalized platform for travel management.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">Redux Toolkit</span>
+                            <span class="tech-tag">Ant Design</span>
+                            <span class="tech-tag">Axios</span>
+                            <span class="tech-tag">Multi-language</span>
+                            <span class="tech-tag">Docker</span>
+
+                        </div>
+                    </div>
+                    <!-- End AgentKlik Dashboard System Highlighted Project -->
+
+                    <div class="project-card">
+                        <h4>🛒 E-commerce Platform</h4>
+                        <p>Full-stack Node.js/React e-commerce with real-time features, modular APIs, and modern UI. Includes cart management, payment processing, and admin dashboard.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>💬 Real-Time Chat App</h4>
+                        <p>Multi-stack chat application with file/voice support, real-time messaging, and user management. Built with Laravel, Node.js, and React.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">WebSocket</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>🤖 AI-Powered Social Platform</h4>
+                        <p>Platform for finding missing children using AI face recognition. Integrates Python deep learning APIs with PHP backend for image processing and matching.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Flask</span>
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">AI/ML</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Vuex</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>📊 Admin Dashboard</h4>
+                        <p>Laravel + Vue.js monolith for business management, analytics, and content control. Features user management, reporting, and real-time notifications.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Bootstrap</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">Vuex</span>
+
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>🎓 School Management System</h4>
+                        <p>Comprehensive educational platform with student/teacher management, quiz engines, and reporting. Built with pure PHP and MySQL.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">MVC Pattern</span>
+                            <span class="tech-tag">Bootstrap</span>
+                            <span class="tech-tag">jQuery</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>🧩 Other Projects</h4>
+                        <p>Collection of games and puzzles including Python/Pygame projects, C implementations, and Assembly algorithms. Focus on problem-solving and UI challenges.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Pygame</span>
+                            <span class="tech-tag">C</span>
+                            <span class="tech-tag">Assembly</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="stats">
+                <h3>Tech Mastery</h3>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Projects Built</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Programming Languages</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Frameworks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Competitive Solutions</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="skills">
+                <h3>Deep Tech Stack</h3>
+                <div class="tech-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                    <div class="tech-item">
+                        <i class="fab fa-js"></i>
+                        <div>TypeScript</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-react"></i>
+                        <div>React/Next.js</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-node-js"></i>
+                        <div>Node.js/Express</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-php"></i>
+                        <div>Laravel</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-python"></i>
+                        <div>Python/Flask</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-java"></i>
+                        <div>Java</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-database"></i>
+                        <div>PostgreSQL</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-database"></i>
+                        <div>MongoDB</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-docker"></i>
+                        <div>Docker</div>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-git-alt"></i>
+                        <div>Git/DevOps</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="contact">
+            <h3 style="font-family: 'Orbitron', monospace; font-size: 2.5rem; color: #00d4ff; margin-bottom: 1rem;">Let's Connect</h3>
+            <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2rem;">Ready to build something amazing together?</p>
+            <div class="social-links">
+                <a href="https://github.com/mohamedjs" class="social-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/mohamed-mahmoud-19ab47122/" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:mohammed_hs552yahoo.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Three.js Scene Setup
+            let scene, camera, renderer, particles;
+            
+            function initThreeJS() {
+                const container = document.getElementById('canvas-container');
+                if (!container) return;
+
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 0);
+                container.appendChild(renderer.domElement);
+
+                // Create particle system
+                const particleCount = 1000;
+                const positions = new Float32Array(particleCount * 3);
+                const colors = new Float32Array(particleCount * 3);
+
+                for (let i = 0; i < particleCount * 3; i += 3) {
+                    positions[i] = (Math.random() - 0.5) * 20;
+                    positions[i + 1] = (Math.random() - 0.5) * 20;
+                    positions[i + 2] = (Math.random() - 0.5) * 20;
+
+                    colors[i] = Math.random() * 0.5 + 0.5;
+                    colors[i + 1] = Math.random() * 0.5 + 0.5;
+                    colors[i + 2] = 1;
+                }
+
+                const geometry = new THREE.BufferGeometry();
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+                const material = new THREE.PointsMaterial({
+                    size: 0.05,
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.8
+                });
+
+                particles = new THREE.Points(geometry, material);
+                scene.add(particles);
+
+                camera.position.z = 5;
+
+                animate();
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                if (particles) {
+                    particles.rotation.x += 0.001;
+                    particles.rotation.y += 0.002;
+                }
+                if(renderer && scene && camera) {
+                    renderer.render(scene, camera);
+                }
+            }
+
+            // Custom cursor
+            const cursor = document.querySelector('.custom-cursor');
+            if (cursor) {
+                const cursorTrails = [];
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                    cursor.style.transform = 'translate(-50%, -50%)';
+
+                    if (cursorTrails.length > 5) {
+                        const oldTrail = cursorTrails.shift();
+                        if(oldTrail) oldTrail.remove();
+                    }
+
+                    const trail = document.createElement('div');
+                    trail.className = 'cursor-trail';
+                    trail.style.left = e.clientX + 'px';
+                    trail.style.top = e.clientY + 'px';
+                    document.body.appendChild(trail);
+                    cursorTrails.push(trail);
+
+                    setTimeout(() => {
+                        trail.style.opacity = '0';
+                        trail.style.transform = 'scale(0)';
+                        setTimeout(() => trail.remove(), 300);
+                    }, 100);
+                });
+            }
+
+            // Floating particles
+            function createFloatingParticles() {
+                const container = document.querySelector('.floating-particles');
+                if (container) {
+                    for (let i = 0; i < 50; i++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'particle';
+                        particle.style.left = Math.random() * 100 + '%';
+                        particle.style.animationDelay = Math.random() * 6 + 's';
+                        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                        container.appendChild(particle);
+                    }
+                }
+            }
+
+            // Resize handler
+            window.addEventListener('resize', () => {
+                if (camera && renderer) {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                }
+            });
+
+            // GSAP animations for hero section
+            gsap.from('.hero h1', { duration: 2, y: 100, opacity: 0, ease: 'power3.out' });
+            gsap.from('.hero h2', { duration: 2, y: 50, opacity: 0, ease: 'power3.out', delay: 0.5 });
+            // gsap.from('.hero .tech-item', { duration: 1, y: 30, opacity: 0, stagger: 0.1, ease: 'power3.out', delay: 1 });
+
+            // Intersection Observer for scroll animations - FIXED VERSION
+            const sections = document.querySelectorAll('.section');
+            const observerOptions = { 
+                root: null, 
+                rootMargin: '-10% 0px -10% 0px', // Trigger slightly before/after entering viewport
+                threshold: [0.1, 0.3] // Multiple thresholds for better detection
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+                        const section = entry.target;
+                        
+                        // Ensure section is visible
+                        section.classList.add('visible');
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+
+                        // Animate child elements
+                        const projectCards = section.querySelectorAll('.project-card');
+                        const statItems = section.querySelectorAll('.stat-item');
+                        const techItems = section.querySelectorAll('.tech-item');
+                        const allAnimateElements = section.querySelectorAll('.animate-on-scroll');
+
+                        // Animate project cards
+                        if (projectCards.length > 0) {
+                            gsap.set(projectCards, { opacity: 0, y: 40 });
+                            gsap.to(projectCards, { 
+                                duration: 1, 
+                                y: 0, 
+                                opacity: 1, 
+                                stagger: 0.15, 
+                                ease: 'power3.out', 
+                                delay: 0.2 
+                            });
+                        }
+
+                        // Animate stat items
+                        if (statItems.length > 0) {
+                            gsap.set(statItems, { opacity: 0, y: 40 });
+                            gsap.to(statItems, { 
+                                duration: 1, 
+                                y: 0, 
+                                opacity: 1, 
+                                stagger: 0.15, 
+                                ease: 'power3.out', 
+                                delay: 0.2 
+                            });
+                        }
+
+                        // Animate tech items
+                        if (techItems.length > 0) {
+                            gsap.set(techItems, { opacity: 0, y: 40 });
+                            gsap.to(techItems, { 
+                                duration: 1, 
+                                y: 0, 
+                                opacity: 1, 
+                                stagger: 0.15, 
+                                ease: 'power3.out', 
+                                delay: 0.2 
+                            });
+                        }
+
+                        // Animate any elements with .animate-on-scroll class
+                        if (allAnimateElements.length > 0) {
+                            gsap.set(allAnimateElements, { opacity: 0, y: 40 });
+                            gsap.to(allAnimateElements, { 
+                                duration: 1, 
+                                y: 0, 
+                                opacity: 1, 
+                                stagger: 0.1, 
+                                ease: 'power3.out', 
+                                delay: 0.1 
+                            });
+                        }
+
+                        // Stop observing this section after animation
+                        observer.unobserve(section);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Fallback: Make sure sections become visible after a delay if observer fails
+            setTimeout(() => {
+                sections.forEach(section => {
+                    if (!section.classList.contains('visible')) {
+                        section.classList.add('visible');
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                        
+                        // Animate child elements without intersection observer
+                        const allElements = section.querySelectorAll('.project-card, .stat-item, .tech-item, .tech-grid, .animate-on-scroll');
+                        if (allElements.length > 0) {
+                            gsap.set(allElements, { opacity: 0, y: 40 });
+                            gsap.to(allElements, { 
+                                duration: 1, 
+                                y: 0, 
+                                opacity: 1, 
+                                stagger: 0.1, 
+                                ease: 'power3.out'
+                            });
+                        }
+                    }
+                });
+            }, 2000); // 2 second fallback delay
+
+            // Initializations
+            initThreeJS();
+            createFloatingParticles();
+        });
+    </script>
+</body>
+</html>
