@@ -1,72 +1,102 @@
-# 👋 Hi, I'm Mohamed
+# 👋 Hi, I'm Mohamed Mahmoud
 
-## 🚀 Full-Stack Engineer | Deep Tech Explorer | Open Source Enthusiast
+## 🚀 Senior Full-Stack Engineer | 6+ Years Experience | Open Source Enthusiast
 
-Welcome to my GitHub! I'm a passionate software engineer with a strong foundation in both backend and frontend development, DevOps, and system architecture. My work spans modern web apps, real-time systems, e-commerce, admin dashboards, educational platforms, and more. I thrive on building robust, scalable solutions and love exploring new technologies. 😊💡
+Welcome to my GitHub! I'm a passionate **Senior Software Engineer** with extensive experience in full-stack development, system architecture, and modern web technologies. I specialize in building scalable, high-performance applications and have successfully delivered complex projects across various industries including travel, e-commerce, and social platforms.
 
----
-
-### 🛠️ **Core Tech Stack**
-
-- **Languages:** TypeScript, JavaScript (ES6+), PHP, Python, Java, C, MIPS Assembly, Bash
-- **Frameworks:** Node.js (Express), React (Next.js), Laravel, Vue.js, Java Swing, Flask
-- **Databases:** PostgreSQL, MySQL, MongoDB, Redis
-- **DevOps:** Docker, Docker Compose, Nginx, CI/CD, Linux server management
-- **Testing:** Jest, PHPUnit
-- **Other:** Prisma ORM, Sequelize, Redux Toolkit, Material UI, Tailwind CSS, Sharp, Multer
+🌐 **Portfolio:** [mohamedjs.github.io/mohamedjs](https://mohamedjs.github.io/mohamedjs/)
 
 ---
 
-### 🌍 **What I Build**
+## 🛠️ **Technical Expertise**
 
-- **Next-Gen Travel Platforms:** Built a revolutionary B2C travel booking platform with a modular Next.js frontend, dynamic theming, and seamless integration of flights, hotels, and services. ✈️
-- **Travel Agency Dashboards:** Developed a comprehensive management system for travel activities, packages, and bookings using Next.js, Redux Toolkit, and Ant Design for a scalable, internationalized UI. 📋
-- **E-commerce Platforms:** Full-stack, event-driven shops with real-time features, modular APIs, and modern UIs (Node.js, React, PostgreSQL, Redis, Docker) 🛒
-- **Admin Dashboards:** Laravel + Vue.js monoliths for business management, analytics, and content control 📊
-- **Real-Time Chat Apps:** Multi-stack chat with file/voice support (Laravel, Node.js, React, Java) 💬
-- **Social Good & AI:** Platforms for missing children search, integrating Python deep learning APIs with PHP backends 🤖🧒
-- **Educational Tools:** School management systems, quiz engines, and student/teacher portals (pure PHP, MySQL) 🎓
-- **Games & Puzzles:** Python/Pygame, C, and Assembly for algorithmic and UI challenges 🧩
-- **Competitive Programming:** Hundreds of solutions in Python and C++ (Codeforces, etc.) 🏆
+### **Expert Level**
+- **Backend:** PHP (Laravel), Node.js (Express), Python (Flask/FastAPI)
+- **Frontend:** React.js, Next.js, Vue.js, TypeScript, JavaScript (ES6+)
+- **Databases:** MySQL, PostgreSQL, MongoDB, Redis
 
----
+### **Proficient**
+- **DevOps:** Docker, Docker Compose, Nginx, CI/CD, Linux Administration
+- **Testing:** Jest, PHPUnit, Playwright, Pytest
+- **Tools:** Git, AWS, Cloudflare, Prisma ORM, Sequelize
 
-### 🧠 **Deep Technology Understanding**
-
-- **Monorepo & Modular Design:** Architected and maintained large codebases with clear separation of concerns and reusable modules 🏗️
-- **Event-Driven Systems:** Built custom event emitters, real-time notifications, and async processing pipelines ⚡
-- **API Design:** RESTful and GraphQL APIs, robust validation, authentication, and error handling 🔗
-- **DevOps & Automation:** Containerized apps, orchestrated multi-service deployments, and automated testing/CI 🐳
-- **Database Mastery:** Designed normalized schemas, optimized queries, and implemented caching strategies 🗄️
-- **Security:** Experience with JWT, session/cookie auth, input validation, and basic hardening 🔒
+### **Familiar With**
+- **Languages:** Java, C, C++, MIPS Assembly, Bash
+- **Frameworks:** Java Swing, Pygame
+- **Other:** GraphQL, WebSockets, Pusher, Firebase
 
 ---
 
-### 🧩 **Other Technologies I've Used**
+## 🌟 **What I Build**
 
-I love learning and experimenting! I've also worked with:
-- Java (Swing, file/voice chat) ☕
-- Python Flask (AI APIs, image processing) 🐍
-- C, MIPS Assembly (low-level programming, algorithms) 🖥️
-- Pygame (game development) 🎮
-- Bash scripting, Makefiles, and more 📝
+### **Enterprise Applications**
+- **Travel Booking Platforms:** Built comprehensive B2C/B2B travel systems with real-time booking, multi-language support, and dynamic theming
+- **E-commerce Solutions:** Full-stack platforms with advanced admin dashboards, payment integration, and inventory management
+- **SaaS Applications:** Multi-tenant systems with role-based access control and scalable architecture
 
----
+### **Real-Time Systems**
+- **Chat Applications:** Multi-platform messaging with file sharing, voice/video calls, and real-time notifications
+- **Live Dashboards:** Real-time analytics and monitoring systems for business intelligence
 
-### 📚 **Open Source & Learning**
-
-- I believe in sharing knowledge and contributing to the community. 🌱
-- My repos include real-world apps, learning projects, and competitive programming solutions.
-- Always open to collaboration, code reviews, and new challenges! 🤝
+### **AI & Innovation**
+- **Computer Vision:** Face recognition systems for social good applications
+- **Search Systems:** Advanced search implementations for travel and e-commerce platforms
 
 ---
 
-### 📫 **Let's Connect**
+## 📊 **Experience Highlights**
 
-- **GitHub:** [mohamedjs](https://github.com/mohamedjs)
-- **LinkedIn:** [mohamed](https://www.linkedin.com/in/mohamed-mahmoud-19ab47122/)
-- **Email:** [mohamed](mohammed_hs552yahoo.com)
+- **6+ years** of professional software development
+- **20+ completed projects** across various industries
+- **Team leadership** experience with mentoring junior developers
+- **Migration projects** from legacy systems to modern architectures
+- **Performance optimization** achieving 40%+ improvements in application speed
 
 ---
 
-*Thanks for visiting! Check out my pinned projects below for a taste of what I build.*
+## 🧠 **System Architecture & Design**
+
+- **Microservices & Monoliths:** Designed scalable architectures for high-traffic applications
+- **API Design:** RESTful and GraphQL APIs with robust authentication and validation
+- **Database Design:** Optimized schemas and query performance for large-scale applications
+- **Security:** Implementation of JWT, session management, and security best practices
+- **DevOps:** Containerized deployments with automated testing and CI/CD pipelines
+
+---
+
+## 🎯 **Currently Working On**
+
+- Advanced travel booking platform with Next.js and modular architecture
+- Open source contributions to Laravel and Vue.js communities
+- Learning advanced cloud technologies (AWS, Kubernetes)
+- Exploring AI/ML integration in web applications
+
+---
+
+## 🏆 **Competitive Programming**
+
+Active problem solver with **500+ solutions** on platforms like Codeforces, demonstrating strong algorithmic thinking and optimization skills.
+
+---
+
+## 📫 **Let's Connect**
+
+- **Portfolio:** [mohamedjs.github.io/mohamedjs](https://mohamedjs.github.io/mohamedjs/)
+- **LinkedIn:** [mohamed-mahmoud-19ab47122](https://www.linkedin.com/in/mohamed-mahmoud-19ab47122/)
+- **Email:** [mohammed_hs55@yahoo.com](mailto:mohammed_hs55@yahoo.com)
+- **Location:** Cairo, Egypt (Open to remote opportunities)
+
+---
+
+## 📌 **Featured Projects**
+
+Check out my pinned repositories below to see examples of my work in:
+- **Travel & Booking Systems**
+- **E-commerce Platforms**
+- **Real-time Chat Applications**
+- **AI-Powered Social Platforms**
+- **Admin Dashboards & Management Systems**
+
+---
+
+*Always open to collaboration, code reviews, and exciting new challenges!*
