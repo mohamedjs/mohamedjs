@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohamed - Full-Stack Engineer & Tech Explorer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Mohamed Mahmoud | Senior Software Engineer & Tech Lead</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #06b6d4;
+            --accent-glow: rgba(6, 182, 212, 0.15);
+            --border-color: #334155;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,895 +24,298 @@
         }
 
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
-            overflow-x: hidden;
-            cursor: none;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .custom-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(45deg, #00d4ff, #ff00ff);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.1s ease;
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
-        .cursor-trail {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: rgba(0, 212, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
+        a:hover {
+            color: #22d3ee;
         }
 
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .content {
-            position: relative;
-            z-index: 2;
-            min-height: 100vh;
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #00d4ff, #ff00ff, #00ff88);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-            margin-bottom: 1rem;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .hero h2 {
-            font-size: 1.5rem;
-            color: #888;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .tech-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 1rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .tech-item:hover {
-            transform: translateY(-5px);
-            border-color: #00d4ff;
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-        }
-
-        .tech-item i {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #00d4ff;
-        }
-
-        .sections {
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
             padding: 4rem 2rem;
         }
 
-        .section {
-            max-width: 1200px;
-            margin: 0 auto 6rem auto;
-            opacity: 0;
-            transform: translateY(50px);
+        /* Header Section */
+        header {
+            margin-bottom: 4rem;
+            animation: fadeInDown 0.8s ease-out;
         }
 
-        .section.visible {
-            /* No longer used for animation */
-        }
-
-        .section h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: #00d4ff;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .project-card:hover::before {
-            left: 100%;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: #00d4ff;
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-        }
-
-        .project-card h4 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #00d4ff;
-        }
-
-        .project-card p {
-            color: #ccc;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tech-tag {
-            background: rgba(0, 212, 255, 0.2);
-            color: #00d4ff;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 3rem;
-            font-weight: 900;
-            color: #00d4ff;
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
             margin-bottom: 0.5rem;
+            color: var(--text-main);
         }
 
-        .stat-label {
-            color: #888;
+        .title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .summary {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-links a {
+            color: var(--text-muted);
+        }
+
+        .contact-links a:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 5rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Experience Cards */
+        .experience-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--accent-glow);
+            border-color: var(--accent);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .job-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .company-name {
+            color: var(--accent);
+            font-weight: 500;
             font-size: 1.1rem;
         }
 
-        .contact {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: rgba(0, 212, 255, 0.05);
+        .job-date {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            background: rgba(255,255,255,0.05);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
+        ul.job-details {
+            list-style: none;
         }
 
-        .social-link {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #00d4ff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 212, 255, 0.3);
+        ul.job-details li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #cbd5e1;
         }
 
-        .social-link:hover {
-            transform: translateY(-5px);
-            background: #00d4ff;
-            color: #000;
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
-        }
-
-        .floating-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle {
+        ul.job-details li::before {
+            content: "▹";
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #00d4ff;
-            border-radius: 50%;
-            animation: float 6s infinite linear;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
+        /* Skills Tags */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
         }
 
+        .skill-tag {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent);
+            color: var(--bg-main);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .tech-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Custom styles for TripKlik B2C highlight */
-        .project-card.tripklik {
-            border: 2px solid #00d4ff;
-            box-shadow: 0 0 30px 0 rgba(0,212,255,0.15);
-            background: linear-gradient(120deg, rgba(0,212,255,0.08), rgba(255,255,255,0.01));
-        }
-        .project-card.tripklik h4 {
-            font-size: 2rem;
-            color: #00d4ff;
-            margin-bottom: 1.5rem;
-        }
-        .project-card.tripklik .project-tech {
-            margin-bottom: 1.5rem;
-        }
-        .project-card.tripklik .readme-content {
-            text-align: left;
-            color: #eee;
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        .project-card.tripklik .readme-content code,
-        .project-card.tripklik .readme-content pre {
-            background: #181c1f;
-            color: #00d4ff;
-            border-radius: 4px;
-            padding: 2px 6px;
-            font-size: 0.95em;
-        }
-        .project-card.tripklik .readme-content ul, 
-        .project-card.tripklik .readme-content ol {
-            margin-left: 1.5em;
-            margin-bottom: 1em;
-        }
-        .project-card.tripklik .readme-content h1,
-        .project-card.tripklik .readme-content h2,
-        .project-card.tripklik .readme-content h3,
-        .project-card.tripklik .readme-content h4 {
-            color: #00d4ff;
-            margin-top: 1.2em;
-            margin-bottom: 0.5em;
-        }
-        .project-card.tripklik .readme-content a {
-            color: #00d4ff;
-            text-decoration: underline;
+            h1 { font-size: 2.5rem; }
+            .job-header { flex-direction: column; }
+            .container { padding: 2rem 1.5rem; }
         }
     </style>
 </head>
 <body>
-    <div class="custom-cursor"></div>
-    <div id="canvas-container"></div>
-    <div class="floating-particles"></div>
-    
-    <div class="content">
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Mohamed Mahmoud</h1>
-                <h2>Senior Software Engineer | System Architecture Expert | Team Leader</h2>
-                <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2rem;">
-                    Results-driven engineer with 6+ years of experience delivering enterprise-grade solutions 🚀
-                </p>
-                
-                <div class="tech-grid">
-                    <div class="tech-item">
-                        <i class="fab fa-laravel"></i>
-                        <div>Laravel</div>
+
+    <div class="container">
+        
+        <header>
+            <h1>Mohamed Mahmoud</h1>
+            <div class="title">Senior Software Engineer & Tech Lead</div>
+            <p class="summary">
+                Results-driven engineering leader with 6+ years of experience architecting and scaling complex web and mobile applications. Proven track record in building multi-tenant SaaS platforms, executing large-scale SPA migrations (React/Next.js), and designing robust back-end microservices (Laravel, Node.js). Passionate about clean architecture and team mentorship.
+            </p>
+            <div class="contact-links">
+                <a href="mailto:mohammed_hs55@yahoo.com" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/mohamedjs" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/mohamed-mahmoud-19ab47122/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="tel:+201112310567" title="Phone"><i class="fas fa-phone"></i></a>
+            </div>
+        </header>
+
+        <section id="experience">
+            <h2>Experience</h2>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Senior Backend Developer & Frontend Migration Lead</div>
+                        <div class="company-name">Tripklik</div>
                     </div>
-                    <div class="tech-item">
-                        <i class="fab fa-php"></i>
-                        <div>PHP</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-node-js"></i>
-                        <div>Node.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-js"></i>
-                        <div>JavaScript</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-js"></i>
-                        <div>TypeScript</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-react"></i>
-                        <div>React</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-python"></i>
-                        <div>Python</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-docker"></i>
-                        <div>Docker</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-vuejs"></i>
-                        <div>Vue.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-bolt"></i>
-                        <div>FastAPI</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-git-alt"></i>
-                        <div>Git</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-database"></i>
-                        <div>MySQL</div>
-                    </div>
+                    <div class="job-date">Oct 2022 – Present</div>
                 </div>
+                <ul class="job-details">
+                    <li><strong>Frontend Modernization:</strong> Spearheaded the complete migration of the travel platform from Laravel Blade to a high-performance, modular Next.js SPA.</li>
+                    <li><strong>SaaS Architecture:</strong> Developed a multi-tenant B2B/B2E architecture supporting dynamic theme configuration, custom branding, and localized currencies via token-based APIs.</li>
+                    <li><strong>Mobile App (Distinia):</strong> Built a React Native application supporting multi-branding through environment variables from a single codebase.</li>
+                    <li><strong>Logistics (Idel):</strong> Architected an automated shipping and logistics integration with Aramex and Bosta.</li>
+                    <li><strong>Backend Scaling:</strong> Scaled APIs using Laravel/Python, implementing Redis and Meilisearch for high-speed travel data retrieval from providers like Amadeus.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Node.js Backend Developer</div>
+                        <div class="company-name">Wseel</div>
+                    </div>
+                    <div class="job-date">Jun 2021 – Dec 2021</div>
+                </div>
+                <ul class="job-details">
+                    <li>Transitioned to Node.js backend development, creating RESTful APIs and operational dashboards for a food delivery platform serving 100K+ active users.</li>
+                    <li>Optimized API performance, reducing response times by 60% through strategic caching and MongoDB query optimization.</li>
+                    <li>Developed scalable microservices utilizing Docker containerization.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Senior Full-Stack Developer / Tech Lead</div>
+                        <div class="company-name">Ivas</div>
+                    </div>
+                    <div class="job-date">Feb 2019 – Jun 2021</div>
+                </div>
+                <ul class="job-details">
+                    <li>Led the technical development of large-scale telecom integrations (Ringback Tones) across the GCC (Saudi Arabia, UAE, Kuwait).</li>
+                    <li>Managed full-stack architecture using Laravel and MongoDB, driving migration towards clean, layered architectural patterns beyond standard MVC.</li>
+                    <li>Mentored junior developers and acted as Technology Lead overseeing technical operations and deployments.</li>
+                </ul>
             </div>
         </section>
 
-        <div class="sections">
-            <section class="section" id="projects">
-                <h3>Featured Projects</h3>
-                <div class="projects-grid">
-                    <!-- TripKlik Enterprise Travel Platform -->
-                    <div class="project-card featured">
-                        <div class="project-icon">✈️</div>
-                        <h4>TripKlik Enterprise Travel Platform</h4>
-                        <p>
-                            Spearheaded complete system modernization from legacy architecture to Next.js SPA, achieving 40% performance improvement. Architected modular monolith with dynamic module loading, multi-tenant branding, and integrated B2B/B2C dashboards serving thousands of users across flights, hotels, visas, and car rentals.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">React.js</span>
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Redis</span>
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">Multi-tenant</span>
-                        </div>
-                    </div>
-                    <!-- End TripKlik Enterprise Travel Platform -->
-
-                    <!-- WSSEL Food Delivery Ecosystem -->
-                    <div class="project-card featured">
-                        <div class="project-icon">🚀</div>
-                        <h4>WSSEL Food Delivery Ecosystem</h4>
-                        <p>
-                            Worked as a developer on Saudi Arabia's premier food delivery platform with 100K+ active users. Developed scalable microservices infrastructure, implemented caching solutions, and optimized API performance achieving 60% response time reduction. Contributed to monitoring setup with AWS CloudWatch.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">AWS CloudWatch</span>
-                            <span class="tech-tag">Redis</span>
-                            <span class="tech-tag">Microservices</span>
-                            <span class="tech-tag">API Optimization</span>
-                        </div>
-                    </div>
-                    <!-- End WSSEL Food Delivery Ecosystem -->
-
-                    <div class="project-card">
-                        <h4>💬 Real-Time Chat Application</h4>
-                        <p>Multi-platform messaging with file sharing, voice/video calls, and real-time notifications. Features room management, user profiles, emotion reactions, and WebRTC integration.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">React.js</span>
-                            <span class="tech-tag">Material-UI</span>
-                            <span class="tech-tag">Redux Toolkit</span>
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">Redis</span>
-                            <span class="tech-tag">WebRTC</span>
-                            <span class="tech-tag">Docker</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h4>🤖 AI-Powered Child Search System</h4>
-                        <p>Graduation project: Social platform with face recognition AI for finding missing children. Python/Flask face detection and age estimation algorithms integrated with Laravel backend.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Flask</span>
-                            <span class="tech-tag">OpenCV</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Pusher</span>
-                            <span class="tech-tag">AI/ML</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h4>📊 E-commerce Admin Panel</h4>
-                        <p>Complete admin solution with OOP structure, Vuex state management, and Laravel backend. Features multi-language support, role-based permissions, and analytics dashboard.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Vuex</span>
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">Multi-language</span>
-                            <span class="tech-tag">Role-based Auth</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h4>🛒 MERN Stack E-commerce</h4>
-                        <p>Modern e-commerce platform with Next.js, Tailwind CSS, Express.js, and MongoDB. Implemented Repository pattern for scalable backend architecture and clean UI/UX.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Tailwind CSS</span>
-                            <span class="tech-tag">Express.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Repository Pattern</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h4>🎓 Enterprise Applications</h4>
-                        <p>Built multiple enterprise solutions including travel booking platforms, e-commerce systems, and SaaS applications with multi-tenant architecture and role-based access control.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Multi-tenant</span>
-                            <span class="tech-tag">SaaS</span>
-                            <span class="tech-tag">Microservices</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h4">🔍 Advanced Search & Analytics</h4>
-                        <p>Implemented advanced search systems for travel and e-commerce platforms. Built real-time analytics and monitoring systems for business intelligence with live dashboards.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Meilisearch</span>
-                            <span class="tech-tag">Redis</span>
-                            <span class="tech-tag">Real-time Analytics</span>
-                            <span class="tech-tag">WebSockets</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="stats">
-                <h3>Impact & Leadership</h3>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number">100K+</div>
-                        <div class="stat-label">Users Served</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">60%</div>
-                        <div class="stat-label">Performance Boost</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">70%</div>
-                        <div class="stat-label">Bug Reduction</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">85%</div>
-                        <div class="stat-label">Test Coverage</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="skills">
-                <h3>Core Technologies & Architecture</h3>
-                <div class="tech-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
-                    <div class="tech-item">
-                        <i class="fab fa-laravel"></i>
-                        <div>Laravel</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-node-js"></i>
-                        <div>Node.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-python"></i>
-                        <div>Python/FastAPI</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-react"></i>
-                        <div>React/Next.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-vuejs"></i>
-                        <div>Vue.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-js"></i>
-                        <div>TypeScript</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-database"></i>
-                        <div>MySQL</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-database"></i>
-                        <div>MongoDB</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-docker"></i>
-                        <div>Docker</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-aws"></i>
-                        <div>AWS</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-cube"></i>
-                        <div>Redis</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-cogs"></i>
-                        <div>Microservices</div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <section class="contact">
-            <h3 style="font-family: 'Orbitron', monospace; font-size: 2.5rem; color: #00d4ff; margin-bottom: 1rem;">Ready to Collaborate?</h3>
-            <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2rem;">Senior Software Engineer & Team Leader | Cairo, Egypt | Open to Global Remote Opportunities</p>
-            <div class="social-links">
-                <a href="https://github.com/mohamedjs" class="social-link" target="_blank" title="GitHub Profile">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/mohamed-mahmoud-19ab47122/" class="social-link" target="_blank" title="LinkedIn Profile">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="mailto:mohammed_hs55@yahoo.com" class="social-link" title="Email Contact">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://mohamedjs.github.io/mohamedjs/" class="social-link" target="_blank" title="Portfolio Website">
-                    <i class="fas fa-globe"></i>
-                </a>
-                <a href="tel:+201112310567" class="social-link" title="Phone Contact">
-                    <i class="fas fa-phone"></i>
-                </a>
+        <section id="skills">
+            <h2>Core Technologies</h2>
+            <div class="skills-grid">
+                <span class="skill-tag">Laravel (PHP)</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Python / FastAPI</span>
+                <span class="skill-tag">React.js / Next.js</span>
+                <span class="skill-tag">React Native</span>
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">MySQL / MongoDB</span>
+                <span class="skill-tag">Redis / Meilisearch</span>
+                <span class="skill-tag">Docker / AWS</span>
+                <span class="skill-tag">Multi-tenant SaaS</span>
+                <span class="skill-tag">System Architecture</span>
+                <span class="skill-tag">Design Patterns (SOLID)</span>
             </div>
         </section>
+
+        <section id="projects">
+            <h2>Key Projects</h2>
+            <div class="experience-item">
+                <div class="job-title">Enterprise Travel Platform <span style="font-weight:400; color:var(--text-muted); font-size:1rem;">(Tripklik)</span></div>
+                <p style="color:#cbd5e1; margin-top:0.5rem;">A comprehensive booking system integrating flights, hotels, and visas with real-time availability. Built using Next.js, Laravel, Python, Redis, and MongoDB with a focus on modular design and B2B/B2C capabilities.</p>
+            </div>
+            
+            <div class="experience-item">
+                <div class="job-title">Real-Time Chat Application</div>
+                <p style="color:#cbd5e1; margin-top:0.5rem;">Multi-platform messaging system supporting real-time messaging, voice/video calls via WebRTC, and room management. Stack: React, Redux, Laravel, Redis Pub/Sub, and Docker.</p>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">AI-Powered Child Search System</div>
+                <p style="color:#cbd5e1; margin-top:0.5rem;">A social platform utilizing Python/Flask and OpenCV for face recognition and age estimation, integrated with a Laravel and Vue.js frontend to help locate missing children.</p>
+            </div>
+        </section>
+
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Three.js Scene Setup
-            let scene, camera, renderer, particles;
-            
-            function initThreeJS() {
-                const container = document.getElementById('canvas-container');
-                if (!container) return;
-
-                scene = new THREE.Scene();
-                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                renderer.setClearColor(0x000000, 0);
-                container.appendChild(renderer.domElement);
-
-                // Create particle system
-                const particleCount = 1000;
-                const positions = new Float32Array(particleCount * 3);
-                const colors = new Float32Array(particleCount * 3);
-
-                for (let i = 0; i < particleCount * 3; i += 3) {
-                    positions[i] = (Math.random() - 0.5) * 20;
-                    positions[i + 1] = (Math.random() - 0.5) * 20;
-                    positions[i + 2] = (Math.random() - 0.5) * 20;
-
-                    colors[i] = Math.random() * 0.5 + 0.5;
-                    colors[i + 1] = Math.random() * 0.5 + 0.5;
-                    colors[i + 2] = 1;
-                }
-
-                const geometry = new THREE.BufferGeometry();
-                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-                const material = new THREE.PointsMaterial({
-                    size: 0.05,
-                    vertexColors: true,
-                    transparent: true,
-                    opacity: 0.8
-                });
-
-                particles = new THREE.Points(geometry, material);
-                scene.add(particles);
-
-                camera.position.z = 5;
-
-                animate();
-            }
-
-            function animate() {
-                requestAnimationFrame(animate);
-                if (particles) {
-                    particles.rotation.x += 0.001;
-                    particles.rotation.y += 0.002;
-                }
-                if(renderer && scene && camera) {
-                    renderer.render(scene, camera);
-                }
-            }
-
-            // Custom cursor
-            const cursor = document.querySelector('.custom-cursor');
-            if (cursor) {
-                const cursorTrails = [];
-                document.addEventListener('mousemove', (e) => {
-                    cursor.style.left = e.clientX + 'px';
-                    cursor.style.top = e.clientY + 'px';
-                    cursor.style.transform = 'translate(-50%, -50%)';
-
-                    if (cursorTrails.length > 5) {
-                        const oldTrail = cursorTrails.shift();
-                        if(oldTrail) oldTrail.remove();
-                    }
-
-                    const trail = document.createElement('div');
-                    trail.className = 'cursor-trail';
-                    trail.style.left = e.clientX + 'px';
-                    trail.style.top = e.clientY + 'px';
-                    document.body.appendChild(trail);
-                    cursorTrails.push(trail);
-
-                    setTimeout(() => {
-                        trail.style.opacity = '0';
-                        trail.style.transform = 'scale(0)';
-                        setTimeout(() => trail.remove(), 300);
-                    }, 100);
-                });
-            }
-
-            // Floating particles
-            function createFloatingParticles() {
-                const container = document.querySelector('.floating-particles');
-                if (container) {
-                    for (let i = 0; i < 50; i++) {
-                        const particle = document.createElement('div');
-                        particle.className = 'particle';
-                        particle.style.left = Math.random() * 100 + '%';
-                        particle.style.animationDelay = Math.random() * 6 + 's';
-                        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                        container.appendChild(particle);
-                    }
-                }
-            }
-
-            // Resize handler
-            window.addEventListener('resize', () => {
-                if (camera && renderer) {
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                }
-            });
-
-            // GSAP animations for hero section
-            gsap.from('.hero h1', { duration: 2, y: 100, opacity: 0, ease: 'power3.out' });
-            gsap.from('.hero h2', { duration: 2, y: 50, opacity: 0, ease: 'power3.out', delay: 0.5 });
-            // gsap.from('.hero .tech-item', { duration: 1, y: 30, opacity: 0, stagger: 0.1, ease: 'power3.out', delay: 1 });
-
-            // Intersection Observer for scroll animations - FIXED VERSION
-            const sections = document.querySelectorAll('.section');
-            const observerOptions = { 
-                root: null, 
-                rootMargin: '-10% 0px -10% 0px', // Trigger slightly before/after entering viewport
-                threshold: [0.1, 0.3] // Multiple thresholds for better detection
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
-                        const section = entry.target;
-                        
-                        // Ensure section is visible
-                        section.classList.add('visible');
-                        section.style.opacity = '1';
-                        section.style.transform = 'translateY(0)';
-
-                        // Animate child elements
-                        const projectCards = section.querySelectorAll('.project-card');
-                        const statItems = section.querySelectorAll('.stat-item');
-                        const techItems = section.querySelectorAll('.tech-item');
-                        const allAnimateElements = section.querySelectorAll('.animate-on-scroll');
-
-                        // Animate project cards
-                        if (projectCards.length > 0) {
-                            gsap.set(projectCards, { opacity: 0, y: 40 });
-                            gsap.to(projectCards, { 
-                                duration: 1, 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.15, 
-                                ease: 'power3.out', 
-                                delay: 0.2 
-                            });
-                        }
-
-                        // Animate stat items
-                        if (statItems.length > 0) {
-                            gsap.set(statItems, { opacity: 0, y: 40 });
-                            gsap.to(statItems, { 
-                                duration: 1, 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.15, 
-                                ease: 'power3.out', 
-                                delay: 0.2 
-                            });
-                        }
-
-                        // Animate tech items
-                        if (techItems.length > 0) {
-                            gsap.set(techItems, { opacity: 0, y: 40 });
-                            gsap.to(techItems, { 
-                                duration: 1, 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.15, 
-                                ease: 'power3.out', 
-                                delay: 0.2 
-                            });
-                        }
-
-                        // Animate any elements with .animate-on-scroll class
-                        if (allAnimateElements.length > 0) {
-                            gsap.set(allAnimateElements, { opacity: 0, y: 40 });
-                            gsap.to(allAnimateElements, { 
-                                duration: 1, 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.1, 
-                                ease: 'power3.out', 
-                                delay: 0.1 
-                            });
-                        }
-
-                        // Stop observing this section after animation
-                        observer.unobserve(section);
-                    }
-                });
-            }, observerOptions);
-
-            // Observe all sections
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // Fallback: Make sure sections become visible after a delay if observer fails
-            setTimeout(() => {
-                sections.forEach(section => {
-                    if (!section.classList.contains('visible')) {
-                        section.classList.add('visible');
-                        section.style.opacity = '1';
-                        section.style.transform = 'translateY(0)';
-                        
-                        // Animate child elements without intersection observer
-                        const allElements = section.querySelectorAll('.project-card, .stat-item, .tech-item, .tech-grid, .animate-on-scroll');
-                        if (allElements.length > 0) {
-                            gsap.set(allElements, { opacity: 0, y: 40 });
-                            gsap.to(allElements, { 
-                                duration: 1, 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.1, 
-                                ease: 'power3.out'
-                            });
-                        }
-                    }
-                });
-            }, 2000); // 2 second fallback delay
-
-            // Initializations
-            initThreeJS();
-            createFloatingParticles();
-        });
-    </script>
 </body>
 </html>
