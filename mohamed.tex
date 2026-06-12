@@ -2,6 +2,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[margin=0.6in]{geometry}
 \usepackage{hyperref}
 \usepackage{url}
@@ -9,65 +10,33 @@
 \usepackage{enumitem}
 \usepackage{needspace}
 \usepackage{xcolor}
-\usepackage{fontawesome5}
 \usepackage{array}
 \usepackage{tabularx}
 \usepackage{multicol}
 \usepackage{calc}
 \usepackage{ifthen}
 
-% --- Color Scheme ---
 \definecolor{primary}{RGB}{0, 102, 204}
 \definecolor{secondary}{RGB}{102, 102, 102}
 \definecolor{accent}{RGB}{51, 51, 51}
-\definecolor{lightgray}{RGB}{245, 245, 245}
 
-% --- Hyperlink Setup ---
 \hypersetup{
     colorlinks=true,
     linkcolor=primary,
-    filecolor=primary,      
     urlcolor=primary,
-    pdftitle={Mohamed Mahmoud - Senior Software Engineer CV},
+    pdftitle={Mohamed Mahmoud - Technical Lead CV},
     pdfauthor={Mohamed Mahmoud},
-    pdfsubject={Software Engineer Resume},
-    pdfkeywords={Software Engineer, Full Stack Developer, Laravel, React, Node.js},
-    pdfpagemode=UseNone,
 }
 \urlstyle{same}
 
-% --- Enhanced Section Formatting ---
-\titleformat{\section}
-  {\Large\bfseries\color{primary}\scshape\raggedright}
-  {}
-  {0em}
-  {}
-  [{\color{primary}\titlerule[1pt]}]
+\titleformat{\section}{\Large\bfseries\color{primary}\scshape\raggedright}{}{0em}{}[{\color{primary}\titlerule[1pt]}]
 \titlespacing*{\section}{0pt}{4ex plus 1ex minus .2ex}{2.5ex plus .2ex}
 
-% --- Subsection Formatting ---
-\titleformat{\subsection}
-  {\large\bfseries\color{accent}\raggedright}
-  {}
-  {0em}
-  {}
+\titleformat{\subsection}{\large\bfseries\color{accent}\raggedright}{}{0em}{}
 \titlespacing*{\subsection}{0pt}{2.5ex plus 0.5ex minus .2ex}{1.2ex plus .2ex}
 
-% --- Enhanced List Formatting ---
-\setlist[itemize]{
-    leftmargin=*,
-    label={\color{primary}\textbullet},
-    topsep=0.5ex,
-    partopsep=0pt,
-    itemsep=0.3ex,
-    parsep=0pt
-}
+\setlist[itemize]{leftmargin=*, label={\color{primary}\textbullet}, topsep=0.5ex, itemsep=0.3ex, parsep=0pt}
 
-% --- Prevent Widow/Orphan Lines ---
-\widowpenalty10000
-\clubpenalty10000
-
-% --- Enhanced Helper Commands ---
 \newcommand{\entryheader}[4]{%
   \subsection*{\textbf{\color{accent}#1} \hfill \textcolor{secondary}{\textit{#3 | #4}}}
   \vspace{-0.5ex}
@@ -75,200 +44,80 @@
   \vspace{0.5ex}
 }
 
-\newcommand{\projectheader}[3]{%
-  \subsection*{\textbf{\color{accent}#1} \hfill \textcolor{secondary}{\textit{#2 -- #3}}}
-  \vspace{-0.5ex}
-}
-
-\newcommand{\projectheadercurrent}[2]{%
-    \subsection*{\textbf{\color{accent}#1} \hfill \textcolor{secondary}{\textit{#2 -- Present}}}
-    \vspace{-0.5ex}
-}
-
-% --- Contact Info Helper ---
-\newcommand{\contactitem}[2]{%
-    \textcolor{primary}{#1} \, #2
-}
-
-% --- Skill Category Helper ---
-\newcommand{\skillcat}[2]{%
-    \textbf{\color{accent}#1:} #2
-}
+\newcommand{\skillcat}[2]{\textbf{\color{accent}#1:} #2}
+\newcommand{\contactitem}[2]{#1\hspace{0.5ex}#2}
 
 \begin{document}
+\pagestyle{empty}
 
-% --- Enhanced Header ---
-\Needspace*{12\baselineskip}
 \begin{center}
     {\Huge\bfseries\color{primary}Mohamed Mahmoud} \\[0.5ex]
-    {\Large\color{secondary}Senior Software Engineer} \\[1ex]
-    
-    % Contact Information in a more structured way
+    {\Large\color{secondary}Technical Lead / Senior Software Engineer} \\[1ex]
     \begin{tabular}{@{}c@{\quad}c@{\quad}c@{}}
-        \contactitem{\faEnvelope}{mohammed\_hs55@yahoo.com} &
-        \contactitem{\faPhone}{+20 1112310567} &
-        \contactitem{\faGlobe}{\href{https://mohamedjs.github.io/mohamedjs/}{mohamedjs.github.io/mohamedjs}} \\[0.5ex]
-        \contactitem{\faGithub}{\href{https://github.com/mohamedis}{GitHub}} &
-        \contactitem{\faLinkedin}{\href{https://www.linkedin.com/in/mohamed-mahmoud-19ab47122}{LinkedIn}} &
-        \contactitem{\faMapMarker}{Cairo, Egypt}
+        \contactitem{\textbf{Email:}}{mohammed\_hs55@yahoo.com} &
+        \contactitem{\textbf{Phone:}}{+20 1112310567} &
+        \contactitem{\textbf{Website:}}{\href{https://mohamedjs.github.io/mohamedjs/}{mohamedjs.github.io/mohamedjs}} \\[0.5ex]
+        \contactitem{\textbf{Git:}}{\href{https://github.com/mohamedis}{GitHub}} &
+        \contactitem{\textbf{In:}}{\href{https://www.linkedin.com/in/mohamed-mahmoud-19ab47122}{LinkedIn}} &
+        \contactitem{\textbf{Loc:}}{Cairo, Egypt}
     \end{tabular}
 \end{center}
 
-\vspace{1ex}
-{\color{primary}\hrulefill}
-\vspace{2ex}
-
-% --- Professional Summary ---
-\needspace{8\baselineskip}
 \section*{Professional Summary}
-\textcolor{accent}{Results-driven Senior Software Engineer} with \textbf{6+ years} of experience building scalable, high-performance applications across the full technology stack. Proven expertise in modern web technologies including \textbf{Laravel}, \textbf{Node.js}, \textbf{React.js}, and \textbf{Next.js}, with a strong focus on clean architecture and performance optimization.
+High-impact \textbf{Technical Lead \& Senior Software Engineer} with over 7 years of experience architecting, scaling, and engineering mission-critical backend architectures, cross-platform mobile applications. Proven expert in building fault-tolerant, polyglot microservices (Python/FastAPI, PHP/Laravel, Node.js) and multi-tenant SaaS platforms tailored for B2B/B2C. Deeply skilled in advanced design patterns (Factory, Circuit Breaker, Adapter, Builder, Decorator), event-driven architectures (EDA), and complex financial ledgers. Demonstrated leadership in bridging highly concurrent backend aggregation services with decoupled Next.js multi-brand frontends and React Native mobile apps, optimizing system reliability for thousands of active users.
 
-\medskip
-Demonstrated leadership in migrating legacy systems to modern architectures, implementing \textbf{multi-tenant SaaS} solutions, and delivering complex travel booking platforms serving thousands of users. Skilled in mentoring development teams and driving technical excellence through code reviews and best practices.
-
-\medskip
-\textbf{Core Competencies:} Full-Stack Development • System Architecture • Team Leadership • Performance Optimization • Agile Methodologies
-
-% --- Technical Skills ---
-\needspace{8\baselineskip}
 \section*{Technical Skills}
-
 \begin{multicols}{2}
 \begin{itemize}[itemsep=0.2ex]
-    \item \skillcat{Frontend}{React.js, Next.js, TypeScript, Vue.js, Redux, Tailwind CSS, MUI}
-    \item \skillcat{Backend}{Laravel, Node.js, Express.js, FastAPI, Flask, PHP}
-    \item \skillcat{Databases}{MySQL, MongoDB, Redis, Meilisearch}
-    \item \skillcat{Cloud \& DevOps}{AWS, Docker, CI/CD, Nginx, Cloudflare}
-    \item \skillcat{Testing}{Jest, Playwright, PHPUnit, Pytest}
-    \item \skillcat{Real-time}{WebSockets, Pusher, Firebase}
-    \item \skillcat{Architecture}{Microservices, SaaS, Multi-Tenant, Modular Monoliths}
-    \item \skillcat{AI \& ML}{Face Recognition, Search Systems, Python ML Libraries}
+    \item \skillcat{Backend \& APIs}{Python, FastAPI, PHP, Laravel 8+, Node.js, REST APIs}
+    \item \skillcat{System Architecture}{Polyglot Microservices, Multi-Tenant SaaS, B2B/B2C Systems, Event-Driven Architecture (EDA)}
+    \item \skillcat{Design Patterns}{Factory, Circuit Breaker, Unified Schema, Adapter, Strategy, Facade, Decorator, Builder}
+    \item \skillcat{Frontend}{Next.js, React.js, Redux, Axios, Vercel Edge Middleware}
+    \item \skillcat{Mobile}{React Native, Expo, React (RTK Query), (EAS for deployment)}
+    \item \skillcat{Databases \& State}{MySQL (ACID), Redis (State Machines), Meilisearch (Inverted Index), MongoDB}
+    \item \skillcat{Infrastructure}{Cloudflare, Nginx, AWS, S3, Docker, CI/CD pipelines}
 \end{itemize}
 \end{multicols}
 
-% --- Professional Experience ---
-\needspace{8\baselineskip}
 \section*{Professional Experience}
 
-\entryheader{Senior Software Engineer}{Tripklik / Taqniat Lab}{Riyadh, KSA (Remote)}{Oct 2022 – Present}
+\entryheader{Technical Lead (Oct 2024 -- Present) \& Senior Software Engineer (Oct 2022 -- Oct 2024)}{Tripklik}{Riyadh, KSA (Remote)}{Oct 2022 – Present}
 \begin{itemize}
-    \item \textbf{Led frontend modernization} by migrating from legacy Blade templates to Next.js SPA, improving performance by 40\% and user experience significantly
-    \item \textbf{Architected modular monolith} frontend system with dynamic module loading, enabling rapid feature deployment and code reusability
-    \item \textbf{Developed comprehensive travel platform} integrating flights, hotels, visas, and car rentals with real-time booking capabilities
-    \item \textbf{Implemented multi-tenant architecture} supporting dynamic branding, multi-language (Arabic/English), and currency conversion
-    \item \textbf{Optimized backend performance} using Laravel, Node.js, and Python microservices with Redis caching and MongoDB optimization
-    \item \textbf{Established testing framework} with comprehensive UI/backend tests, achieving 85\% code coverage
+    \item \textbf{Polyglot Distributed Architecture:} Architected an enterprise-grade travel booking ecosystem utilizing \textbf{FastAPI (Python)} for high-concurrency flight/hotel search aggregation and \textbf{Laravel (PHP)} for core transactional booking and B2B financial ledgers.
+    \item \textbf{FastAPI Aggregation \& Flight Fulfillment:} Engineered the travel provider integration engine using a \textbf{Factory Pattern} and \textbf{Unified Schema Mapper} to standardize complex payloads across multiple third-party suppliers (Amadeus, Hotelbeds, Flyadeal).
+    \item \textbf{Enterprise API Resilience:} Built an advanced API Resilience Overlay incorporating \textbf{Circuit Breakers}, provider-aware adaptive throttling, and exponential backoff to protect internal infrastructure from external supplier downtimes.
+    \item \textbf{Financial Core \& B2B Accounting:} Designed a robust financial engine in Laravel featuring a dynamic multi-currency conversion system (Supplier $\rightarrow$ Base $\rightarrow$ Client) and a \textbf{B2B Pocket Management} system utilizing ACID-compliant MySQL ledgers and a Payment Gateway Factory (Stripe, PayPal, B2B wallets).
+    \item \textbf{Advanced State Management \& EDA:} Implemented a shared \textbf{Redis State Machine} bridging ephemeral session data between Python microservices and the PHP booking engine. Orchestrated an \textbf{Event-Driven Architecture (EDA)} with background queues to decouple notification services and trigger cross-service auto-booking execution without blocking the user journey.
+    \item \textbf{Next.js Multi-Tenant Frontend:} Spearheaded a decoupled multi-brand architecture deploying via a single common branch on Vercel. Utilized Edge Middleware for dynamic subdomain routing, environment-driven \textbf{S3 CSS asset injection}, and centralized Axios interceptors for global state, auth, and header management.
+    \item \textbf{High-Speed Autocomplete:} Integrated Meilisearch as an inverted index service via direct Nginx routing, drastically reducing database load and delivering ultra-fast autocomplete experiences.
+    \item \textbf{Mobile Multi-Branding (Distinia, Tripklik):} Developed a React Native architecture utilizing runtime environment injections to launch distinct, white-labeled client mobile builds from a singular codebase.
 \end{itemize}
 
-\entryheader{Senior Full-Stack Developer}{WSSEL}{Riyadh, KSA (Remote)}{Jun 2021 – Dec 2021}
+\entryheader{Senior Software Engineer}{Ivas}{Cairo, Egypt}{Feb 2019 – May 2022}
 \begin{itemize}
-    \item \textbf{Contributed to R\&D initiatives} for Saudi Arabia's leading food delivery platform serving 100K+ active users
-    \item \textbf{Developed scalable microservices} using Laravel and Node.js with Docker containerization for improved deployment efficiency
-    \item \textbf{Optimized API performance} reducing response times by 60\% through strategic caching and query optimization
-    \item \textbf{Collaborated cross-functionally} with mobile and frontend teams to ensure seamless API integration
-    \item \textbf{Implemented monitoring solutions} using AWS CloudWatch for real-time system health tracking
-\end{itemize}
-
-\entryheader{Senior Full-Stack Developer}{iVAS}{Cairo, Egypt}{Feb 2019 – Jun 2021}
-\begin{itemize}
-    \item \textbf{Led technical architecture} for multiple e-commerce platforms, implementing clean code principles and design patterns
-    \item \textbf{Developed scalable chat applications} with real-time messaging using WebSockets and Redis pub/sub
-    \item \textbf{Mentored junior developers} (3 team members) in best practices, code reviews, and technical growth
-    \item \textbf{Managed complete project lifecycle} from requirements gathering to deployment and post-launch support
-    \item \textbf{Implemented automated testing} reducing production bugs by 70\% through comprehensive test coverage
+    \item \textbf{Enterprise Telecom Integrations:} Directed the core backend development and infrastructure setup for large-scale Ringback Tone delivery networks deployed across major telecom operators in the GCC region (KSA, UAE, Kuwait).
+    \item \textbf{Architecture Evolution:} Shifted production backends from standard MVC monolithic designs to robust, clean layered architectures using Laravel and MongoDB to facilitate seamless integration flows.
+    \item \textbf{Team Mentorship:} Led backend squads in adopting best practices for API security, performance profiling, and maintainable code delivery.
 \end{itemize}
 
 \entryheader{Back-End Developer}{Grand}{Cairo, Egypt}{Jun 2018 – Oct 2018}
 \begin{itemize}
-    \item \textbf{Developed RESTful APIs} serving mobile and web applications with focus on performance and security
-    \item \textbf{Collaborated with frontend teams} to define API contracts and ensure optimal data flow
-    \item \textbf{Managed client communications} providing technical guidance and project updates
+    \item \textbf{Developed RESTful APIs} serving mobile and web applications with focus on performance and security.
+    \item \textbf{Collaborated with frontend teams} to define API contracts and ensure optimal data flow.
+    \item \textbf{Managed client communications} providing technical guidance and project updates.
 \end{itemize}
 
 \entryheader{Full-Stack Developer}{LoadServ For Integrated Business Solution}{Cairo, Egypt}{Jan 2018 – May 2018}
 \begin{itemize}
-    \item \textbf{Contributed to team projects} focusing on modern web technologies and best practices
-    \item \textbf{Solved complex technical challenges} in both frontend and backend development
-    \item \textbf{Participated in code reviews} and knowledge sharing sessions
+    \item \textbf{Contributed to team projects} focusing on modern web technologies and best practices.
+    \item \textbf{Solved complex technical challenges} in both frontend and backend development.
+    \item \textbf{Participated in code reviews} and knowledge sharing sessions.
 \end{itemize}
 
-% --- Education ---
-\needspace{5\baselineskip}
 \section*{Education}
-\entryheader{Bachelor of Science in Computer Science}{Faculty of Computers \& Artificial Intelligence, Helwan University}{Cairo, Egypt}{2014 – 2018}
+\entryheader{Bachelor of Science in Computer Science}{Helwan University}{Cairo, Egypt}{2014 – 2018}
 \begin{itemize}
-    \item \textbf{Graduation Project:} AI-powered child search system using face recognition and social media analysis
-    \item \textbf{Relevant Coursework:} Data Structures, Algorithms, Database Systems, Software Engineering, AI/ML
-\end{itemize}
-
-% --- Key Projects & Achievements ---
-\needspace{8\baselineskip}
-\section*{Key Projects \& Achievements}
-
-\projectheadercurrent{Enterprise Travel Booking Platform}{2022}
-\textcolor{secondary}{\textit{Tripklik - Production System}}
-\begin{itemize}
-    \item \textbf{Migrated to modern architecture:} Next.js SPA with modular design supporting dynamic theming and multi-language support
-    \item \textbf{Built comprehensive booking system:} Integrated flights, hotels, visas with real-time availability and pricing
-    \item \textbf{Implemented B2B/B2C dashboards:} Advanced management interfaces for travel agencies and direct customers
-    \item \textbf{Technologies:} Next.js, React.js, Laravel, Node.js, Python, Redis, MongoDB, Docker
-\end{itemize}
-
-\projectheader{Real-time Chat Application}{May 2021}{Jun 2021}
-\href{https://github.com/mohamedjs/chat-application}{\textcolor{primary}{github.com/mohamedjs/chat-application}}
-\begin{itemize}
-    \item \textbf{Features:} Room management, user profiles, real-time messaging, emotion reactions, audio/video calls
-    \item \textbf{Technologies:} React.js, Material-UI, Redux Toolkit, Laravel, MySQL, Redis, Docker, WebRTC
-\end{itemize}
-
-\projectheadercurrent{AI-Powered Child Search System}{2018}
-\href{https://github.com/mohamedjs/Kidnap-children}{\textcolor{primary}{github.com/mohamedjs/Kidnap-children}}
-\begin{itemize}
-    \item \textbf{Graduation Project:} Social platform with face recognition AI for finding missing children
-    \item \textbf{AI Component:} Python/Flask face detection and age estimation algorithms
-    \item \textbf{Technologies:} Laravel, Vue.js, Python, Flask, OpenCV, Firebase, Pusher
-\end{itemize}
-
-\projectheadercurrent{E-commerce Admin Panel (Vue.js)}{2019}
-\href{https://github.com/mohamedjs/multi-vue}{\textcolor{primary}{github.com/mohamedjs/multi-vue}}
-\begin{itemize}
-    \item \textbf{Complete admin solution:} OOP structure with Vuex state management and Laravel backend
-    \item \textbf{Features:} Multi-language support, role-based permissions, analytics dashboard
-\end{itemize}
-
-\projectheadercurrent{MERN Stack E-commerce}{2022}
-\href{https://github.com/mohamedjs/shoping-node}{\textcolor{primary}{github.com/mohamedjs/shoping-node}}
-\begin{itemize}
-    \item \textbf{Modern tech stack:} Next.js, Tailwind CSS, Express.js, MongoDB with Repository pattern
-    \item \textbf{Focus:} Clean UI/UX and scalable backend architecture
-\end{itemize}
-
-% --- Certifications & Additional Skills ---
-\needspace{5\baselineskip}
-\section*{Additional Information}
-
-\begin{multicols}{2}
-\textbf{\color{accent}Languages:}
-\begin{itemize}[itemsep=0.1ex]
-    \item Arabic (Native)
-    \item English (Professional)
-\end{itemize}
-
-\textbf{\color{accent}Soft Skills:}
-\begin{itemize}[itemsep=0.1ex]
-    \item Team Leadership
-    \item Agile/Scrum Methodologies
-    \item Problem Solving
-    \item Code Review \& Mentoring
-    \item Technical Communication
-\end{itemize}
-\end{multicols}
-
-\vspace{1ex}
-\textbf{\color{accent}Open Source Contributions:}
-\begin{itemize}[itemsep=0.1ex]
-    \item \href{https://github.com/mohamedjs/codeforces}{\textcolor{primary}{Problem Solving Repository}} - Algorithmic solutions in Python, C++, C
-    \item Active contributor to Laravel and Vue.js community discussions
+    \item \textbf{Graduation Project:} Face Recognition child search platform built with Python, Flask, OpenCV, and Firebase.
 \end{itemize}
 
 \end{document}

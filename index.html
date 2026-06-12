@@ -1,910 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohamed - Full-Stack Engineer & Tech Explorer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Rajdhani', sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        .custom-cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(45deg, #00d4ff, #ff00ff);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.1s ease;
-        }
-
-        .cursor-trail {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: rgba(0, 212, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-        }
-
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .content {
-            position: relative;
-            z-index: 2;
-            min-height: 100vh;
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #00d4ff, #ff00ff, #00ff88);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-            margin-bottom: 1rem;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .hero h2 {
-            font-size: 1.5rem;
-            color: #888;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .tech-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 1rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .tech-item:hover {
-            transform: translateY(-5px);
-            border-color: #00d4ff;
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-        }
-
-        .tech-item i {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #00d4ff;
-        }
-
-        .sections {
-            padding: 4rem 2rem;
-        }
-
-        .section {
-            max-width: 1200px;
-            margin: 0 auto 6rem auto;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-
-        .section.visible {
-            /* No longer used for animation */
-        }
-
-        .section h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: #00d4ff;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .project-card:hover::before {
-            left: 100%;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: #00d4ff;
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-        }
-
-        .project-card h4 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #00d4ff;
-        }
-
-        .project-card p {
-            color: #ccc;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tech-tag {
-            background: rgba(0, 212, 255, 0.2);
-            color: #00d4ff;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 3rem;
-            font-weight: 900;
-            color: #00d4ff;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: #888;
-            font-size: 1.1rem;
-        }
-
-        .contact {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: rgba(0, 212, 255, 0.05);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .social-link {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #00d4ff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-
-        .social-link:hover {
-            transform: translateY(-5px);
-            background: #00d4ff;
-            color: #000;
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
-        }
-
-        .floating-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #00d4ff;
-            border-radius: 50%;
-            animation: float 6s infinite linear;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .tech-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Custom styles for TripKlik B2C highlight */
-        .project-card.tripklik {
-            border: 2px solid #00d4ff;
-            box-shadow: 0 0 30px 0 rgba(0,212,255,0.15);
-            background: linear-gradient(120deg, rgba(0,212,255,0.08), rgba(255,255,255,0.01));
-        }
-        .project-card.tripklik h4 {
-            font-size: 2rem;
-            color: #00d4ff;
-            margin-bottom: 1.5rem;
-        }
-        .project-card.tripklik .project-tech {
-            margin-bottom: 1.5rem;
-        }
-        .project-card.tripklik .readme-content {
-            text-align: left;
-            color: #eee;
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        .project-card.tripklik .readme-content code,
-        .project-card.tripklik .readme-content pre {
-            background: #181c1f;
-            color: #00d4ff;
-            border-radius: 4px;
-            padding: 2px 6px;
-            font-size: 0.95em;
-        }
-        .project-card.tripklik .readme-content ul, 
-        .project-card.tripklik .readme-content ol {
-            margin-left: 1.5em;
-            margin-bottom: 1em;
-        }
-        .project-card.tripklik .readme-content h1,
-        .project-card.tripklik .readme-content h2,
-        .project-card.tripklik .readme-content h3,
-        .project-card.tripklik .readme-content h4 {
-            color: #00d4ff;
-            margin-top: 1.2em;
-            margin-bottom: 0.5em;
-        }
-        .project-card.tripklik .readme-content a {
-            color: #00d4ff;
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohamed Mahmoud — Technical Lead</title>
+  <meta name="description" content="Technical Lead & Senior Software Engineer with 7+ years architecting polyglot microservices, event-driven systems, and multi-tenant SaaS platforms.">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="custom-cursor"></div>
-    <div id="canvas-container"></div>
-    <div class="floating-particles"></div>
-    
-    <div class="content">
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Mohamed Mahmoud</h1>
-                <h2>Senior Software Engineer | System Architecture Expert | Team Leader</h2>
-                <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2rem;">
-                    Results-driven engineer with 6+ years of experience delivering enterprise-grade solutions 🚀
-                </p>
-                
-                <div class="tech-grid">
-                    <div class="tech-item">
-                        <i class="fab fa-laravel"></i>
-                        <div>Laravel</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-php"></i>
-                        <div>PHP</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-node-js"></i>
-                        <div>Node.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-js"></i>
-                        <div>JavaScript</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-js"></i>
-                        <div>TypeScript</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-react"></i>
-                        <div>React</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-python"></i>
-                        <div>Python</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-docker"></i>
-                        <div>Docker</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-vuejs"></i>
-                        <div>Vue.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-bolt"></i>
-                        <div>FastAPI</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-git-alt"></i>
-                        <div>Git</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-database"></i>
-                        <div>MySQL</div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <div class="sections">
-            <section class="section" id="projects">
-                <h3>Featured Projects</h3>
-                <div class="projects-grid">
-                    <!-- TripKlik Enterprise Travel Platform -->
-                    <div class="project-card featured">
-                        <div class="project-icon">✈️</div>
-                        <h4>TripKlik Enterprise Travel Platform</h4>
-                        <p>
-                            Spearheaded complete system modernization from legacy architecture to Next.js SPA, achieving 40% performance improvement. Architected modular monolith with dynamic module loading, multi-tenant branding, and integrated B2B/B2C dashboards serving thousands of users across flights, hotels, visas, and car rentals.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">React.js</span>
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Redis</span>
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">Multi-tenant</span>
-                        </div>
-                    </div>
-                    <!-- End TripKlik Enterprise Travel Platform -->
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">M<span>.</span>Mahmoud</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="mailto:mohammed_hs55@yahoo.com">Contact</a></li>
+    </ul>
+  </div>
+</nav>
 
-                    <!-- WSSEL Food Delivery Ecosystem -->
-                    <div class="project-card featured">
-                        <div class="project-icon">🚀</div>
-                        <h4>WSSEL Food Delivery Ecosystem</h4>
-                        <p>
-                            Worked as a developer on Saudi Arabia's premier food delivery platform with 100K+ active users. Developed scalable microservices infrastructure, implemented caching solutions, and optimized API performance achieving 60% response time reduction. Contributed to monitoring setup with AWS CloudWatch.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">AWS CloudWatch</span>
-                            <span class="tech-tag">Redis</span>
-                            <span class="tech-tag">Microservices</span>
-                            <span class="tech-tag">API Optimization</span>
-                        </div>
-                    </div>
-                    <!-- End WSSEL Food Delivery Ecosystem -->
-
-                    <div class="project-card">
-                        <h4>💬 Real-Time Chat Application</h4>
-                        <p>Multi-platform messaging with file sharing, voice/video calls, and real-time notifications. Features room management, user profiles, emotion reactions, and WebRTC integration.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">React.js</span>
-                            <span class="tech-tag">Material-UI</span>
-                            <span class="tech-tag">Redux Toolkit</span>
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">Redis</span>
-                            <span class="tech-tag">WebRTC</span>
-                            <span class="tech-tag">Docker</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h4>🤖 AI-Powered Child Search System</h4>
-                        <p>Graduation project: Social platform with face recognition AI for finding missing children. Python/Flask face detection and age estimation algorithms integrated with Laravel backend.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Flask</span>
-                            <span class="tech-tag">OpenCV</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Pusher</span>
-                            <span class="tech-tag">AI/ML</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h4>📊 E-commerce Admin Panel</h4>
-                        <p>Complete admin solution with OOP structure, Vuex state management, and Laravel backend. Features multi-language support, role-based permissions, and analytics dashboard.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Vuex</span>
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">Multi-language</span>
-                            <span class="tech-tag">Role-based Auth</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h4>🛒 MERN Stack E-commerce</h4>
-                        <p>Modern e-commerce platform with Next.js, Tailwind CSS, Express.js, and MongoDB. Implemented Repository pattern for scalable backend architecture and clean UI/UX.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Tailwind CSS</span>
-                            <span class="tech-tag">Express.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Repository Pattern</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h4>🎓 Enterprise Applications</h4>
-                        <p>Built multiple enterprise solutions including travel booking platforms, e-commerce systems, and SaaS applications with multi-tenant architecture and role-based access control.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Laravel</span>
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Multi-tenant</span>
-                            <span class="tech-tag">SaaS</span>
-                            <span class="tech-tag">Microservices</span>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h4">🔍 Advanced Search & Analytics</h4>
-                        <p>Implemented advanced search systems for travel and e-commerce platforms. Built real-time analytics and monitoring systems for business intelligence with live dashboards.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Meilisearch</span>
-                            <span class="tech-tag">Redis</span>
-                            <span class="tech-tag">Real-time Analytics</span>
-                            <span class="tech-tag">WebSockets</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="stats">
-                <h3>Impact & Leadership</h3>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number">100K+</div>
-                        <div class="stat-label">Users Served</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">60%</div>
-                        <div class="stat-label">Performance Boost</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">70%</div>
-                        <div class="stat-label">Bug Reduction</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">85%</div>
-                        <div class="stat-label">Test Coverage</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="skills">
-                <h3>Core Technologies & Architecture</h3>
-                <div class="tech-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
-                    <div class="tech-item">
-                        <i class="fab fa-laravel"></i>
-                        <div>Laravel</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-node-js"></i>
-                        <div>Node.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-python"></i>
-                        <div>Python/FastAPI</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-react"></i>
-                        <div>React/Next.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-vuejs"></i>
-                        <div>Vue.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-js"></i>
-                        <div>TypeScript</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-database"></i>
-                        <div>MySQL</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-database"></i>
-                        <div>MongoDB</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-docker"></i>
-                        <div>Docker</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-aws"></i>
-                        <div>AWS</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-cube"></i>
-                        <div>Redis</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-cogs"></i>
-                        <div>Microservices</div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <section class="contact">
-            <h3 style="font-family: 'Orbitron', monospace; font-size: 2.5rem; color: #00d4ff; margin-bottom: 1rem;">Ready to Collaborate?</h3>
-            <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2rem;">Senior Software Engineer & Team Leader | Cairo, Egypt | Open to Global Remote Opportunities</p>
-            <div class="social-links">
-                <a href="https://github.com/mohamedjs" class="social-link" target="_blank" title="GitHub Profile">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/mohamed-mahmoud-19ab47122/" class="social-link" target="_blank" title="LinkedIn Profile">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="mailto:mohammed_hs55@yahoo.com" class="social-link" title="Email Contact">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://mohamedjs.github.io/mohamedjs/" class="social-link" target="_blank" title="Portfolio Website">
-                    <i class="fas fa-globe"></i>
-                </a>
-                <a href="tel:+201112310567" class="social-link" title="Phone Contact">
-                    <i class="fas fa-phone"></i>
-                </a>
-            </div>
-        </section>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Available for opportunities</p>
+      <h1>Mohamed<br>Mahmoud</h1>
+      <p class="hero-title-role">Technical Lead / Senior Software Engineer</p>
+      <p class="hero-summary">
+        High-impact engineer with 7+ years architecting fault-tolerant polyglot microservices,
+        event-driven systems, and multi-tenant SaaS platforms across travel-tech and telecom.
+        Expert in advanced design patterns and complex financial ledgers for B2B/B2C.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:mohammed_hs55@yahoo.com">✉ Email</a>
+        <a href="https://github.com/mohamedis" target="_blank">⌘ GitHub</a>
+        <a href="https://www.linkedin.com/in/mohamed-mahmoud-19ab47122" target="_blank">⊡ LinkedIn</a>
+        <a href="tel:+201112310567">✆ +20 111 231 0567</a>
+      </div>
     </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">7+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Countries Served</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">8+</div>
+        <div class="stat-label">Design Patterns</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Three.js Scene Setup
-            let scene, camera, renderer, particles;
-            
-            function initThreeJS() {
-                const container = document.getElementById('canvas-container');
-                if (!container) return;
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Expertise</span>
+      <h2 class="section-title">Technical Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h3>Backend & APIs</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">Laravel 8+</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>System Architecture</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Polyglot Microservices</span>
+          <span class="skill-tag">Multi-Tenant SaaS</span>
+          <span class="skill-tag">B2B/B2C</span>
+          <span class="skill-tag">EDA</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Design Patterns</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Factory</span>
+          <span class="skill-tag">Circuit Breaker</span>
+          <span class="skill-tag">Adapter</span>
+          <span class="skill-tag">Strategy</span>
+          <span class="skill-tag">Decorator</span>
+          <span class="skill-tag">Builder</span>
+          <span class="skill-tag">Facade</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Frontend</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">Redux</span>
+          <span class="skill-tag">Vercel Edge</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Mobile</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">React Native</span>
+          <span class="skill-tag">Expo</span>
+          <span class="skill-tag">RTK Query</span>
+          <span class="skill-tag">EAS</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Databases & State</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">MySQL (ACID)</span>
+          <span class="skill-tag">Redis</span>
+          <span class="skill-tag">Meilisearch</span>
+          <span class="skill-tag">MongoDB</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Infrastructure</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">AWS / S3</span>
+          <span class="skill-tag">Nginx</span>
+          <span class="skill-tag">Cloudflare</span>
+          <span class="skill-tag">CI/CD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                scene = new THREE.Scene();
-                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                renderer.setClearColor(0x000000, 0);
-                container.appendChild(renderer.domElement);
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Career</span>
+      <h2 class="section-title">Professional Experience</h2>
+    </div>
+    <div class="exp-list">
 
-                // Create particle system
-                const particleCount = 1000;
-                const positions = new Float32Array(particleCount * 3);
-                const colors = new Float32Array(particleCount * 3);
+      <!-- Tripklik -->
+      <article class="exp-card featured">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Technical Lead <span style="color:var(--text-muted);font-weight:300">&</span> Senior Software Engineer</div>
+            <div class="exp-company">Tripklik — Riyadh, KSA (Remote)</div>
+          </div>
+          <div class="exp-meta">Oct 2022 — Present<br>Lead since Oct 2024</div>
+        </div>
+        <ul class="exp-bullets">
+          <li><strong>Polyglot Distributed Architecture:</strong> Architected enterprise-grade travel booking ecosystem utilizing FastAPI (Python) for high-concurrency flight/hotel search aggregation and Laravel (PHP) for core transactional booking and B2B financial ledgers.</li>
+          <li><strong>FastAPI Aggregation & Flight Fulfillment:</strong> Engineered travel provider integration engine using Factory Pattern and Unified Schema Mapper to standardize payloads across Amadeus, Hotelbeds, Flyadeal.</li>
+          <li><strong>Enterprise API Resilience:</strong> Built Circuit Breakers, provider-aware adaptive throttling, and exponential backoff to protect infrastructure from supplier downtimes.</li>
+          <li><strong>Financial Core & B2B Accounting:</strong> Designed multi-currency conversion system (Supplier → Base → Client) with B2B Pocket Management using ACID-compliant MySQL ledgers and Payment Gateway Factory (Stripe, PayPal, B2B wallets).</li>
+          <li><strong>State Management & EDA:</strong> Implemented shared Redis State Machine bridging Python microservices and PHP booking engine. Orchestrated Event-Driven Architecture with background queues for cross-service auto-booking.</li>
+          <li><strong>Next.js Multi-Tenant Frontend:</strong> Decoupled multi-brand architecture on Vercel with Edge Middleware for subdomain routing, S3 CSS asset injection, and centralized Axios interceptors.</li>
+          <li><strong>High-Speed Autocomplete:</strong> Integrated Meilisearch as inverted index via direct Nginx routing for ultra-fast search experiences.</li>
+          <li><strong>Mobile Multi-Branding:</strong> React Native architecture with runtime environment injections for white-labeled mobile builds from a singular codebase.</li>
+        </ul>
+        <div class="exp-tags">
+          <span>FastAPI</span><span>Laravel</span><span>Next.js</span><span>React Native</span>
+          <span>Redis</span><span>MySQL</span><span>Meilisearch</span><span>Docker</span>
+          <span>Vercel</span><span>Circuit Breaker</span><span>EDA</span>
+        </div>
+      </article>
 
-                for (let i = 0; i < particleCount * 3; i += 3) {
-                    positions[i] = (Math.random() - 0.5) * 20;
-                    positions[i + 1] = (Math.random() - 0.5) * 20;
-                    positions[i + 2] = (Math.random() - 0.5) * 20;
+      <!-- Ivas -->
+      <article class="exp-card">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Senior Software Engineer</div>
+            <div class="exp-company">Ivas — Cairo, Egypt</div>
+          </div>
+          <div class="exp-meta">Feb 2019 — May 2022</div>
+        </div>
+        <ul class="exp-bullets">
+          <li><strong>Enterprise Telecom Integrations:</strong> Directed core backend for large-scale Ringback Tone delivery networks across major GCC telecom operators (KSA, UAE, Kuwait).</li>
+          <li><strong>Architecture Evolution:</strong> Migrated production backends from MVC monoliths to clean layered architectures using Laravel and MongoDB.</li>
+          <li><strong>Team Mentorship:</strong> Led backend squads in API security, performance profiling, and maintainable code delivery.</li>
+        </ul>
+        <div class="exp-tags">
+          <span>Laravel</span><span>MongoDB</span><span>API Design</span><span>GCC Telecom</span>
+        </div>
+      </article>
 
-                    colors[i] = Math.random() * 0.5 + 0.5;
-                    colors[i + 1] = Math.random() * 0.5 + 0.5;
-                    colors[i + 2] = 1;
-                }
+      <!-- Grand -->
+      <article class="exp-card">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Back-End Developer</div>
+            <div class="exp-company">Grand — Cairo, Egypt</div>
+          </div>
+          <div class="exp-meta">Jun 2018 — Oct 2018</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Developed RESTful APIs serving mobile and web applications with focus on performance and security.</li>
+          <li>Collaborated with frontend teams to define API contracts and ensure optimal data flow.</li>
+        </ul>
+      </article>
 
-                const geometry = new THREE.BufferGeometry();
-                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      <!-- LoadServ -->
+      <article class="exp-card">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Full-Stack Developer</div>
+            <div class="exp-company">LoadServ For Integrated Business Solution — Cairo, Egypt</div>
+          </div>
+          <div class="exp-meta">Jan 2018 — May 2018</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Contributed to team projects focusing on modern web technologies and best practices.</li>
+          <li>Solved complex technical challenges across frontend and backend development.</li>
+        </ul>
+      </article>
 
-                const material = new THREE.PointsMaterial({
-                    size: 0.05,
-                    vertexColors: true,
-                    transparent: true,
-                    opacity: 0.8
-                });
+    </div>
+  </div>
+</section>
 
-                particles = new THREE.Points(geometry, material);
-                scene.add(particles);
+<!-- ARCHITECTURE -->
+<section class="section" id="architecture">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Patterns</span>
+      <h2 class="section-title">Architecture & Design Patterns</h2>
+    </div>
+    <div class="patterns-grid">
+      <div class="pattern-card"><span class="pattern-icon">⚙</span><span>Factory Pattern</span></div>
+      <div class="pattern-card"><span class="pattern-icon">🛡</span><span>Circuit Breaker</span></div>
+      <div class="pattern-card"><span class="pattern-icon">⇌</span><span>Adapter Pattern</span></div>
+      <div class="pattern-card"><span class="pattern-icon">◈</span><span>Decorator</span></div>
+      <div class="pattern-card"><span class="pattern-icon">⊞</span><span>Strategy</span></div>
+      <div class="pattern-card"><span class="pattern-icon">⊟</span><span>Builder</span></div>
+      <div class="pattern-card"><span class="pattern-icon">⊡</span><span>Unified Schema</span></div>
+      <div class="pattern-card"><span class="pattern-icon">⟐</span><span>Facade</span></div>
+      <div class="pattern-card"><span class="pattern-icon">⊶</span><span>Polyglot Services</span></div>
+      <div class="pattern-card"><span class="pattern-icon">⚡</span><span>Event-Driven</span></div>
+      <div class="pattern-card"><span class="pattern-icon">⊞</span><span>Multi-Tenant SaaS</span></div>
+      <div class="pattern-card"><span class="pattern-icon">⊛</span><span>Redis State Machine</span></div>
+    </div>
+  </div>
+</section>
 
-                camera.position.z = 5;
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Background</span>
+      <h2 class="section-title">Education</h2>
+    </div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">B.Sc. Computer Science</div>
+        <div class="edu-school">Helwan University — Cairo, Egypt</div>
+        <div class="edu-project"><strong>Graduation Project:</strong> Face Recognition child search platform — Python, Flask, OpenCV, Firebase</div>
+      </div>
+      <div class="edu-date">2014 — 2018</div>
+    </div>
+  </div>
+</section>
 
-                animate();
-            }
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="mailto:mohammed_hs55@yahoo.com">Email</a>
+      <a href="https://github.com/mohamedis" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/mohamed-mahmoud-19ab47122" target="_blank">LinkedIn</a>
+    </div>
+    <p class="footer-copy">Mohamed Mahmoud © 2025. Cairo, Egypt.</p>
+  </div>
+</footer>
 
-            function animate() {
-                requestAnimationFrame(animate);
-                if (particles) {
-                    particles.rotation.x += 0.001;
-                    particles.rotation.y += 0.002;
-                }
-                if(renderer && scene && camera) {
-                    renderer.render(scene, camera);
-                }
-            }
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+</script>
 
-            // Custom cursor
-            const cursor = document.querySelector('.custom-cursor');
-            if (cursor) {
-                const cursorTrails = [];
-                document.addEventListener('mousemove', (e) => {
-                    cursor.style.left = e.clientX + 'px';
-                    cursor.style.top = e.clientY + 'px';
-                    cursor.style.transform = 'translate(-50%, -50%)';
-
-                    if (cursorTrails.length > 5) {
-                        const oldTrail = cursorTrails.shift();
-                        if(oldTrail) oldTrail.remove();
-                    }
-
-                    const trail = document.createElement('div');
-                    trail.className = 'cursor-trail';
-                    trail.style.left = e.clientX + 'px';
-                    trail.style.top = e.clientY + 'px';
-                    document.body.appendChild(trail);
-                    cursorTrails.push(trail);
-
-                    setTimeout(() => {
-                        trail.style.opacity = '0';
-                        trail.style.transform = 'scale(0)';
-                        setTimeout(() => trail.remove(), 300);
-                    }, 100);
-                });
-            }
-
-            // Floating particles
-            function createFloatingParticles() {
-                const container = document.querySelector('.floating-particles');
-                if (container) {
-                    for (let i = 0; i < 50; i++) {
-                        const particle = document.createElement('div');
-                        particle.className = 'particle';
-                        particle.style.left = Math.random() * 100 + '%';
-                        particle.style.animationDelay = Math.random() * 6 + 's';
-                        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                        container.appendChild(particle);
-                    }
-                }
-            }
-
-            // Resize handler
-            window.addEventListener('resize', () => {
-                if (camera && renderer) {
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                }
-            });
-
-            // GSAP animations for hero section
-            gsap.from('.hero h1', { duration: 2, y: 100, opacity: 0, ease: 'power3.out' });
-            gsap.from('.hero h2', { duration: 2, y: 50, opacity: 0, ease: 'power3.out', delay: 0.5 });
-            // gsap.from('.hero .tech-item', { duration: 1, y: 30, opacity: 0, stagger: 0.1, ease: 'power3.out', delay: 1 });
-
-            // Intersection Observer for scroll animations - FIXED VERSION
-            const sections = document.querySelectorAll('.section');
-            const observerOptions = { 
-                root: null, 
-                rootMargin: '-10% 0px -10% 0px', // Trigger slightly before/after entering viewport
-                threshold: [0.1, 0.3] // Multiple thresholds for better detection
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
-                        const section = entry.target;
-                        
-                        // Ensure section is visible
-                        section.classList.add('visible');
-                        section.style.opacity = '1';
-                        section.style.transform = 'translateY(0)';
-
-                        // Animate child elements
-                        const projectCards = section.querySelectorAll('.project-card');
-                        const statItems = section.querySelectorAll('.stat-item');
-                        const techItems = section.querySelectorAll('.tech-item');
-                        const allAnimateElements = section.querySelectorAll('.animate-on-scroll');
-
-                        // Animate project cards
-                        if (projectCards.length > 0) {
-                            gsap.set(projectCards, { opacity: 0, y: 40 });
-                            gsap.to(projectCards, { 
-                                duration: 1, 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.15, 
-                                ease: 'power3.out', 
-                                delay: 0.2 
-                            });
-                        }
-
-                        // Animate stat items
-                        if (statItems.length > 0) {
-                            gsap.set(statItems, { opacity: 0, y: 40 });
-                            gsap.to(statItems, { 
-                                duration: 1, 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.15, 
-                                ease: 'power3.out', 
-                                delay: 0.2 
-                            });
-                        }
-
-                        // Animate tech items
-                        if (techItems.length > 0) {
-                            gsap.set(techItems, { opacity: 0, y: 40 });
-                            gsap.to(techItems, { 
-                                duration: 1, 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.15, 
-                                ease: 'power3.out', 
-                                delay: 0.2 
-                            });
-                        }
-
-                        // Animate any elements with .animate-on-scroll class
-                        if (allAnimateElements.length > 0) {
-                            gsap.set(allAnimateElements, { opacity: 0, y: 40 });
-                            gsap.to(allAnimateElements, { 
-                                duration: 1, 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.1, 
-                                ease: 'power3.out', 
-                                delay: 0.1 
-                            });
-                        }
-
-                        // Stop observing this section after animation
-                        observer.unobserve(section);
-                    }
-                });
-            }, observerOptions);
-
-            // Observe all sections
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // Fallback: Make sure sections become visible after a delay if observer fails
-            setTimeout(() => {
-                sections.forEach(section => {
-                    if (!section.classList.contains('visible')) {
-                        section.classList.add('visible');
-                        section.style.opacity = '1';
-                        section.style.transform = 'translateY(0)';
-                        
-                        // Animate child elements without intersection observer
-                        const allElements = section.querySelectorAll('.project-card, .stat-item, .tech-item, .tech-grid, .animate-on-scroll');
-                        if (allElements.length > 0) {
-                            gsap.set(allElements, { opacity: 0, y: 40 });
-                            gsap.to(allElements, { 
-                                duration: 1, 
-                                y: 0, 
-                                opacity: 1, 
-                                stagger: 0.1, 
-                                ease: 'power3.out'
-                            });
-                        }
-                    }
-                });
-            }, 2000); // 2 second fallback delay
-
-            // Initializations
-            initThreeJS();
-            createFloatingParticles();
-        });
-    </script>
 </body>
 </html>
