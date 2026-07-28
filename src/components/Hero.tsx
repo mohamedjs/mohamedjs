@@ -5,7 +5,6 @@ import { profile, stats, projects } from "../data/portfolio";
 const float = (delay = 0, distance = 8, duration = 7) => ({
   animate: {
     y: [0, -distance, 0],
-    rotate: [0, 1.5, 0, -1.5, 0],
     transition: { duration, delay, repeat: Infinity, ease: "easeInOut" as const },
   },
 });
@@ -40,21 +39,30 @@ const socials = [
     ),
   },
   {
-    label: "Phone",
-    href: `tel:${profile.phone.replace(/\s/g, "")}`,
+    label: "WhatsApp",
+    href: `https://wa.me/${profile.phone.replace(/[^0-9]/g, "")}`,
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.13-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.09-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.73 2.64 4.19 3.7.59.26 1.04.41 1.4.52.59.19 1.12.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29Z" />
       </svg>
     ),
   },
 ];
 
 const statIcons = [
-  <svg key="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>,
-  <svg key="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 16.5 3 21l4.5-1.5M14 4l6 6L8.5 21.5a2.1 2.1 0 0 1-3-3L17 7m-3-3 2.5-2.5a2.1 2.1 0 0 1 3 3L17 7m-3-3 3 3" /></svg>,
-  <svg key="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z" /></svg>,
+  <svg key="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z" /><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z" /><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" /></svg>,
+  <svg key="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>,
+  <svg key="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z" /></svg>,
   <svg key="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>,
+];
+
+const particles = [
+  { x: "8%", y: "22%", d: 0 },
+  { x: "88%", y: "30%", d: 0.8 },
+  { x: "16%", y: "68%", d: 1.6 },
+  { x: "80%", y: "74%", d: 2.4 },
+  { x: "50%", y: "12%", d: 3.2 },
+  { x: "26%", y: "44%", d: 4 },
 ];
 
 export default function Hero() {
@@ -63,13 +71,13 @@ export default function Hero() {
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 60, damping: 18 });
-  const sy = useSpring(my, { stiffness: 60, damping: 18 });
+  const sx = useSpring(mx, { stiffness: 55, damping: 20 });
+  const sy = useSpring(my, { stiffness: 55, damping: 20 });
 
-  const avatarX = useTransform(sx, [-1, 1], [-12, 12]);
-  const avatarY = useTransform(sy, [-1, 1], [-8, 8]);
-  const cardX = useTransform(sx, [-1, 1], [10, -10]);
-  const cardY = useTransform(sy, [-1, 1], [7, -7]);
+  const avatarX = useTransform(sx, [-1, 1], [-16, 16]);
+  const avatarY = useTransform(sy, [-1, 1], [-10, 10]);
+  const cardX = useTransform(sx, [-1, 1], [9, -9]);
+  const cardY = useTransform(sy, [-1, 1], [6, -6]);
 
   const onMouseMove = (e: React.MouseEvent) => {
     const rect = ref.current?.getBoundingClientRect();
@@ -78,64 +86,107 @@ export default function Hero() {
     my.set(((e.clientY - rect.top) / rect.height) * 2 - 1);
   };
 
-  const featured = projects[0];
+  const featured = projects.find((p) => p.slug === "7alm") ?? projects[0];
 
   return (
     <section className="hero" id="home" ref={ref} onMouseMove={onMouseMove}>
       <div className="container">
-        <div className="hero-inner">
+        <div className="hero-grid">
+          {/* ── Left: copy ─────────────────────────── */}
           <motion.div
+            className="hero-copy"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
           >
             <p className="hero-eyebrow">
-              <span className="dot" /> Hi, I'm Mohamed — available for opportunities
+              <span className="wave">👋</span> Hi, I'm Mohamed
             </p>
             <h1>
-              I build digital <span className="grad">experiences</span> people love.
+              I build digital
+              <br />
+              <span className="grad">experiences</span>
+              <br />
+              people love.
             </h1>
-            <p className="hero-summary">{profile.summary}</p>
+            <p className="hero-summary">
+              Technical Lead &amp; automation lover.
+              <br />
+              I architect fast, fault-tolerant backends
+              <br />
+              and beautiful web applications.
+            </p>
             <div className="hero-actions">
               <a className="btn-primary" href="#projects">
                 View My Work
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
+                <span className="btn-arrow">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
               </a>
               <a className="btn-ghost" href={profile.resume} target="_blank" rel="noreferrer">
-                <span className="play">▸</span> View Résumé
+                <span className="play">
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 4v16l13-8z" />
+                  </svg>
+                </span>
+                View Résumé
               </a>
             </div>
             <div className="hero-socials">
-              <span className="label">Find me on</span>
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  className="social-btn"
-                  href={s.href}
-                  target={s.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  aria-label={s.label}
-                  title={s.label}
-                >
-                  {s.icon}
-                </a>
-              ))}
+              <span className="label">
+                <span className="tick" /> Find me on <span className="tick" />
+              </span>
+              <div className="social-row">
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    className="social-btn"
+                    href={s.href}
+                    target={s.href.startsWith("http") ? "_blank" : undefined}
+                    rel="noreferrer"
+                    aria-label={s.label}
+                    title={s.label}
+                  >
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
             </div>
           </motion.div>
 
+          {/* ── Center: avatar ─────────────────────── */}
           <motion.div
-            className="hero-visual"
-            initial={{ opacity: 0, scale: 0.94 }}
+            className="hero-avatar"
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.2, 0.8, 0.2, 1] }}
+            transition={{ duration: 0.9, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
           >
             <motion.div className="avatar-stage" style={{ x: avatarX, y: avatarY }}>
-              <div className="avatar-glow" />
-              <motion.div className="avatar-ring" animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }} />
-              <motion.div className="avatar-ring-2" animate={{ rotate: -360 }} transition={{ duration: 60, repeat: Infinity, ease: "linear" }} />
-              <motion.div className="avatar-frame" {...float(0, 10, 8)}>
+              <div className="stage-glow" />
+              <motion.div
+                className="orbit orbit-a"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+              />
+              <motion.div
+                className="orbit orbit-b"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
+              />
+
+              {particles.map((p) => (
+                <motion.span
+                  key={p.x + p.y}
+                  className="particle"
+                  style={{ left: p.x, top: p.y }}
+                  animate={{ y: [0, -18, 0], opacity: [0.25, 1, 0.25] }}
+                  transition={{ duration: 5, delay: p.d, repeat: Infinity, ease: "easeInOut" }}
+                />
+              ))}
+
+              <motion.div className="avatar-media" {...float(0, 12, 8)}>
                 {avatarOk ? (
                   <img src={profile.avatar} alt={profile.name} onError={() => setAvatarOk(false)} />
                 ) : (
@@ -144,74 +195,116 @@ export default function Hero() {
                   </div>
                 )}
               </motion.div>
-            </motion.div>
 
-            <motion.div className="float-card fc-whatido" style={{ x: cardX, y: cardY }}>
-              <motion.div {...float(0.6, 7, 6)}>
+              <div className="podium">
+                <span className="podium-ring" />
+                <span className="podium-core" />
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* ── Right: floating cards ──────────────── */}
+          <motion.div
+            className="hero-cards"
+            style={{ x: cardX, y: cardY }}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
+          >
+            <div className="cards-row">
+              <motion.div className="glass-card fc-whatido" {...float(0.4, 7, 6.5)}>
                 <div className="fc-head">
-                  <span className="fc-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
-                  </span>
+                  <span className="fc-dot" />
                   What I Do
                 </div>
-                <p>I architect backends, automate workflows and craft digital products end-to-end.</p>
+                <span className="fc-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
+                  </svg>
+                </span>
+                <p>I build web apps, automate workflows and create amazing digital products.</p>
                 <a className="fc-link" href="#skills">
-                  See Skills →
+                  See Skills
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
                 </a>
               </motion.div>
-            </motion.div>
 
-            <motion.div className="float-card fc-experience" style={{ x: cardX, y: cardY }}>
-              <motion.div {...float(1.1, 6, 6.5)}>
-                <div className="big">7+</div>
-                <div className="small">Years of Experience</div>
-              </motion.div>
-            </motion.div>
-
-            <motion.div className="float-card fc-stack" style={{ x: cardX, y: cardY }}>
-              <motion.div {...float(1.6, 8, 7.5)}>
+              <motion.div className="glass-card fc-exp" {...float(0.9, 6, 7)}>
                 <div className="fc-head">
-                  <span className="fc-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
+                  <span className="fc-mini">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="7" width="20" height="14" rx="2" />
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                    </svg>
                   </span>
-                  Tech Stack
+                  Experience
                 </div>
-                <div className="chips">
-                  <span className="chip" style={{ color: "#61dafb" }}>Re</span>
-                  <span className="chip" style={{ color: "#6ee7b7" }}>Py</span>
-                  <span className="chip" style={{ color: "#f472b6" }}>La</span>
-                  <span className="chip" style={{ color: "#4cc9f0" }}>TS</span>
-                  <span className="chip" style={{ color: "#9d97b8" }}>···</span>
+                <div className="exp-figure">
+                  <span className="big">7+</span>
+                  <span className="small">
+                    Years
+                    <br />
+                    Working
+                  </span>
                 </div>
               </motion.div>
+            </div>
+
+            <motion.div className="glass-card fc-stack" {...float(1.4, 8, 7.5)}>
+              <div className="fc-head">
+                <span className="fc-mini">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5" />
+                  </svg>
+                </span>
+                Tech Stack
+              </div>
+              <div className="chips">
+                <span className="chip" title="React / React Native" style={{ color: "#61dafb" }}>⚛</span>
+                <span className="chip" title="Python & FastAPI" style={{ color: "#6ee7b7" }}>Py</span>
+                <span className="chip" title="Laravel / PHP" style={{ color: "#f87171" }}>La</span>
+                <span className="chip" title="TypeScript" style={{ color: "#4cc9f0" }}>TS</span>
+                <span className="chip" title="Next.js" style={{ color: "#e5e3ee" }}>N</span>
+                <span className="chip dots">···</span>
+              </div>
             </motion.div>
 
-            <motion.div className="float-card fc-featured" style={{ x: cardX, y: cardY }}>
-              <motion.div {...float(2.1, 7, 8.5)}>
-                <div className="fc-head">
-                  <span className="fc-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M3 9h18M9 21V9" /></svg>
-                  </span>
-                  Featured Project
+            <motion.div className="glass-card fc-featured" {...float(1.9, 7, 8)}>
+              <div className="fc-head">
+                <span className="fc-mini">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+                  </svg>
+                </span>
+                Featured Project
+              </div>
+              <div className="feat-body">
+                <div className="feat-text">
+                  <strong>{featured.name}</strong>
+                  <p>{featured.tagline}</p>
+                  <a className="fc-link" href="#projects">
+                    View Project
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M13 6l6 6-6 6" />
+                    </svg>
+                  </a>
                 </div>
-                <p>
-                  <strong style={{ color: "var(--text)" }}>{featured.name}</strong> — {featured.tagline}
-                </p>
-                <img src={featured.cover} alt={featured.name} loading="lazy" />
-                <a className="fc-link" href="#projects">
-                  View Project →
-                </a>
-              </motion.div>
+                <div className="feat-shot">
+                  <img src={featured.cover} alt={featured.name} loading="lazy" />
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
 
+        {/* ── Stats bar ────────────────────────────── */}
         <motion.div
           className="stats-bar"
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.45, ease: [0.2, 0.8, 0.2, 1] }}
         >
           {stats.map((s, i) => (
             <div className="stat" key={s.label}>

@@ -38,10 +38,10 @@ export const profile = {
 };
 
 export const stats = [
-  { value: "7+", label: "Years Experience" },
   { value: "20+", label: "Projects Delivered" },
+  { value: "7+", label: "Years Experience" },
+  { value: "4", label: "Countries Served" },
   { value: "8+", label: "Design Patterns" },
-  { value: "100%", label: "Commitment" },
 ];
 
 export const skillGroups = [
