@@ -192,21 +192,28 @@ button {
 /* ── Nav ────────────────────────────────────────────── */
 .nav {
   position: fixed;
-  top: 16px;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 50;
-  display: flex;
-  justify-content: center;
-  pointer-events: none;
+  padding: 16px 24px;
 }
 
-.nav-inner {
-  pointer-events: auto;
+/* same width as .container so the Mj logo and the Let's Talk button
+   line up exactly with the hero columns below */
+.nav-wrap {
   display: flex;
   align-items: center;
-  gap: 28px;
-  padding: 10px 14px 10px 22px;
+  justify-content: space-between;
+  gap: 18px;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+}
+
+.nav-pill {
+  display: flex;
+  align-items: center;
+  padding: 20px 10px;
   background: var(--glass);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -218,8 +225,12 @@ button {
 .nav-logo {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 45px;
   letter-spacing: -0.02em;
+  background: linear-gradient(92deg, #a58bff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .nav-logo span {
@@ -236,10 +247,10 @@ button {
 }
 
 .nav-links a {
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 500;
   color: var(--text-muted);
-  padding: 8px 16px;
+  padding: 10px 18px;
   border-radius: 999px;
   transition: color 0.2s, background 0.2s;
 }
@@ -259,7 +270,7 @@ button {
   color: #fff;
   background: linear-gradient(92deg, var(--accent), var(--accent-2));
   border: none;
-  padding: 10px 20px;
+  padding: 9px 10px 9px 22px;
   border-radius: 999px;
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 6px 24px rgba(124, 92, 255, 0.4);
@@ -506,7 +517,7 @@ button {
 .hero-avatar {
   position: relative;
   display: grid;
-  place-items: center;
+  place-items: normal;
   min-height: 620px;
   z-index: 2;
   /* the character intentionally spills past its column and sits behind
@@ -643,7 +654,7 @@ button {
   display: grid;
   grid-template-columns: 1.35fr 1fr;
   gap: 16px;
-  align-items: start;
+  align-items: center;
 }
 
 .glass-card {
@@ -772,12 +783,12 @@ button {
 .fc-stack .chip {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: transparent;
   border: 1px solid var(--card-border);
-  font-size: 13px;
+  font-size: 24px;
   font-weight: 700;
   font-family: var(--font-display);
 }
@@ -826,11 +837,12 @@ button {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  margin-top: 48px;
+  margin: 36px 0 0;
+  max-width: 100%;
   background: var(--glass);
   border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  padding: 26px 12px;
+  border-radius: 18px;
+  padding: 16px 10px;
   backdrop-filter: blur(14px);
   position: relative;
   z-index: 4;
@@ -838,7 +850,7 @@ button {
 
 .stat {
   text-align: center;
-  padding: 6px 10px;
+  padding: 2px 10px;
 }
 
 .stat + .stat {
@@ -848,30 +860,30 @@ button {
 .stat .icon {
   display: inline-grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
   background: var(--accent-soft);
   border: 1px solid rgba(124, 92, 255, 0.3);
   color: var(--accent);
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .stat .icon svg {
-  width: 19px;
-  height: 19px;
+  width: 16px;
+  height: 16px;
 }
 
 .stat .num {
   font-family: var(--font-display);
-  font-size: 28px;
+  font-size: 23px;
   font-weight: 700;
 }
 
 .stat .lbl {
-  font-size: 12.5px;
+  font-size: 11.5px;
   color: var(--text-muted);
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 /* ── Skills ─────────────────────────────────────────── */
@@ -1481,12 +1493,12 @@ button {
     padding: 80px 0;
   }
 
-  .nav-links {
+  .nav-pill {
     display: none;
   }
 
-  .nav-inner {
-    gap: 14px;
+  .nav {
+    padding: 14px 18px;
   }
 
   .hero-cards {

@@ -57,21 +57,23 @@ export default function Nav() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
     >
-      <div className="nav-inner">
+      <div className="nav-wrap">
         <a href="#home" className="nav-logo">
           M<span>j</span>
           <i className="logo-dot" />
         </a>
 
-        <ul className="nav-links">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} className={active === l.href ? "active" : undefined}>
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="nav-pill">
+          <ul className="nav-links">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} className={active === l.href ? "active" : undefined}>
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="nav-right">
           <button className="theme-btn" onClick={toggle} aria-label="Toggle theme" title="Toggle theme">

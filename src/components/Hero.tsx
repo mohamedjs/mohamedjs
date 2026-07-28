@@ -231,7 +231,7 @@ export default function Hero() {
                 </a>
               </motion.div>
 
-              <motion.div className="glass-card fc-exp" {...float(0.9, 6, 7)}>
+              <motion.div className="glass-card fc-exp" {...float(0.4, 7, 6.5)}>
                 <div className="fc-head">
                   <span className="fc-mini">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -264,7 +264,7 @@ export default function Hero() {
               <div className="chips">
                 <span className="chip" title="React / React Native" style={{ color: "#61dafb" }}>⚛</span>
                 <span className="chip" title="Python & FastAPI" style={{ color: "#6ee7b7" }}>Py</span>
-                <span className="chip" title="Laravel / PHP" style={{ color: "#f87171" }}>La</span>
+                <span className="chip" title="Laravel / PHP" style={{ color: "#fb7185" }}>La</span>
                 <span className="chip" title="TypeScript" style={{ color: "#4cc9f0" }}>TS</span>
                 <span className="chip" title="Next.js" style={{ color: "#e5e3ee" }}>N</span>
                 <span className="chip dots">···</span>
