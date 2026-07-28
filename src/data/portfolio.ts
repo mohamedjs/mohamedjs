@@ -31,7 +31,7 @@ export const profile = {
   location: "Cairo, Egypt",
   github: "https://github.com/mohamedjs",
   linkedin: "https://www.linkedin.com/in/mohamed-mahmoud-19ab47122",
-  avatar: `${BASE}avatar.png`,
+  avatar: `${BASE}avatar.webp`,
   resume: `${BASE}mohamed-mahmoud-cv.pdf`,
   summary:
     "Full-stack developer & architecture lover. I build fault-tolerant, polyglot microservices and multi-tenant SaaS platforms — modern, fast and beautiful web applications.",

@@ -46,13 +46,7 @@
   background: rgba(26, 14, 62, 0.04);
 }
 
-/* The avatar PNG has a baked-in dark backdrop, so it keeps its own
-   dark "pocket of space" even in light mode. */
-:root[data-theme="light"] .stage-glow {
-  background:
-    radial-gradient(ellipse 52% 46% at 50% 40%, rgba(124, 92, 255, 0.45), transparent 68%),
-    radial-gradient(ellipse 62% 54% at 50% 50%, #0a0616 46%, transparent 78%);
-}
+/* The avatar is a transparent cutout, so it works on both themes. */
 
 * {
   margin: 0;
@@ -340,7 +334,7 @@ button {
 .hero-grid {
   display: grid;
   /* minmax(0,…) stops the 560px avatar from squeezing the copy column */
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 0.88fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr) minmax(0, 0.95fr);
   align-items: center;
   gap: 8px;
   width: 100%;
@@ -522,8 +516,8 @@ button {
 
 .avatar-stage {
   position: relative;
-  width: min(560px, 134%);
-  aspect-ratio: 1 / 1.12;
+  width: min(430px, 100%);
+  aspect-ratio: 1 / 1.42;
 }
 
 /* Always-dark pocket of space so the avatar's dark backdrop
@@ -583,9 +577,7 @@ button {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* soft-fade the square PNG edges into the page background */
-  -webkit-mask-image: radial-gradient(ellipse 58% 56% at 50% 46%, #000 55%, transparent 88%);
-  mask-image: radial-gradient(ellipse 58% 56% at 50% 46%, #000 55%, transparent 88%);
+  object-position: bottom center;
   filter: drop-shadow(0 24px 60px rgba(124, 92, 255, 0.45));
 }
 
@@ -610,9 +602,9 @@ button {
 .podium {
   position: absolute;
   left: 50%;
-  bottom: 13%;
+  bottom: 7%;
   translate: -50% 0;
-  width: 46%;
+  width: 40%;
   aspect-ratio: 3.6 / 1;
   z-index: 1;
 }
