@@ -72,7 +72,16 @@ function Lightbox({
         {item.kind === "image" ? (
           <img src={item.src} alt={`${project.name} screenshot ${index + 1}`} />
         ) : (
-          <video src={item.src} controls autoPlay playsInline />
+          <video
+            src={item.src}
+            poster={project.cover}
+            controls
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
         )}
       </motion.div>
     </motion.div>
