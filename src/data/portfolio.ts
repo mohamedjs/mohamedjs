@@ -136,8 +136,12 @@ export const experiences: Experience[] = [
         title: "Team Mentorship",
         body: "Led backend squads in adopting best practices for API security, performance profiling, and maintainable code delivery.",
       },
+      {
+        title: "Real-Time Chat Applications",
+        body: "Developed scalable chat applications with real-time messaging using WebSockets and Redis pub/sub.",
+      },
     ],
-    tags: ["Laravel", "MongoDB", "Telecom APIs", "Nginx"],
+    tags: ["Laravel", "MongoDB", "WebSockets", "Redis", "Telecom APIs", "Nginx"],
   },
   {
     role: "Back-End Developer",
@@ -147,7 +151,11 @@ export const experiences: Experience[] = [
     bullets: [
       {
         title: "RESTful APIs",
-        body: "Developed APIs serving mobile and web applications with focus on performance and security, defining contracts with frontend teams.",
+        body: "Developed APIs serving mobile and web applications with focus on performance and security, defining contracts with frontend teams to ensure optimal data flow.",
+      },
+      {
+        title: "Client Communication",
+        body: "Managed client communications providing technical guidance and project updates.",
       },
     ],
     tags: ["PHP", "REST APIs", "MySQL"],
@@ -160,7 +168,11 @@ export const experiences: Experience[] = [
     bullets: [
       {
         title: "Team Delivery",
-        body: "Contributed to team projects on modern web technologies, solving complex challenges across frontend and backend.",
+        body: "Contributed to team projects focusing on modern web technologies and best practices, solving complex challenges across frontend and backend.",
+      },
+      {
+        title: "Code Reviews & Knowledge Sharing",
+        body: "Participated in code reviews and knowledge sharing sessions to elevate team quality.",
       },
     ],
     tags: ["JavaScript", "PHP", "MySQL"],
