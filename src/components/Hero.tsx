@@ -3,12 +3,20 @@ import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } fro
 import { profile, stats, projects } from "../data/portfolio";
 import Icon, { type IconName } from "./Icon";
 
-const float = (delay = 0, distance = 8, duration = 7) => ({
-  animate: {
-    y: [0, -distance, 0],
-    transition: { duration, delay, repeat: Infinity, ease: "easeInOut" as const },
-  },
-});
+/** True on touch-primary devices (phones/tablets). Checked once at module load. */
+const IS_MOBILE =
+  typeof window !== "undefined" &&
+  (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
+
+const float = (delay = 0, distance = 8, duration = 7) =>
+  IS_MOBILE
+    ? {} // no infinite float on mobile
+    : {
+        animate: {
+          y: [0, -distance, 0],
+          transition: { duration, delay, repeat: Infinity, ease: "easeInOut" as const },
+        },
+      };
 
 const socials: { label: string; href: string; icon: IconName }[] = [
   { label: "GitHub", href: profile.github, icon: "github" },
@@ -51,28 +59,32 @@ export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const [avatarOk, setAvatarOk] = useState(true);
   const reducedMotion = useReducedMotion();
+  const skipAnimations = IS_MOBILE || reducedMotion;
 
   // Enable smooth scrolling after first paint (avoids Safari blocking initial render)
   useEffect(() => {
     requestAnimationFrame(() => document.documentElement.classList.add("smooth-scroll"));
   }, []);
 
+  // Parallax mouse tracking — only on desktop (mobile has no mouse & springs waste GPU)
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 55, damping: 20 });
   const sy = useSpring(my, { stiffness: 55, damping: 20 });
 
-  const avatarX = useTransform(sx, [-1, 1], [-16, 16]);
-  const avatarY = useTransform(sy, [-1, 1], [-10, 10]);
-  const cardX = useTransform(sx, [-1, 1], [9, -9]);
-  const cardY = useTransform(sy, [-1, 1], [6, -6]);
+  const avatarX = useTransform(sx, [-1, 1], IS_MOBILE ? [0, 0] : [-16, 16]);
+  const avatarY = useTransform(sy, [-1, 1], IS_MOBILE ? [0, 0] : [-10, 10]);
+  const cardX = useTransform(sx, [-1, 1], IS_MOBILE ? [0, 0] : [9, -9]);
+  const cardY = useTransform(sy, [-1, 1], IS_MOBILE ? [0, 0] : [6, -6]);
 
-  const onMouseMove = (e: React.MouseEvent) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    mx.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
-    my.set(((e.clientY - rect.top) / rect.height) * 2 - 1);
-  };
+  const onMouseMove = IS_MOBILE
+    ? undefined
+    : (e: React.MouseEvent) => {
+        const rect = ref.current?.getBoundingClientRect();
+        if (!rect) return;
+        mx.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
+        my.set(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      };
 
   const featured = projects.find((p) => p.slug === "7alm") ?? projects[0];
 
@@ -153,18 +165,22 @@ export default function Hero() {
           >
             <motion.div className="avatar-stage" style={{ x: avatarX, y: avatarY }}>
               <div className="stage-glow" />
-              <motion.div
-                className="orbit orbit-a"
-                animate={reducedMotion ? undefined : { rotate: 360 }}
-                transition={reducedMotion ? undefined : { duration: 26, repeat: Infinity, ease: "linear" }}
-              />
-              <motion.div
-                className="orbit orbit-b"
-                animate={reducedMotion ? undefined : { rotate: -360 }}
-                transition={reducedMotion ? undefined : { duration: 38, repeat: Infinity, ease: "linear" }}
-              />
+              {!skipAnimations && (
+                <motion.div
+                  className="orbit orbit-a"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+                />
+              )}
+              {!skipAnimations && (
+                <motion.div
+                  className="orbit orbit-b"
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
+                />
+              )}
 
-              {!reducedMotion && particles.map((p) => (
+              {!skipAnimations && particles.map((p) => (
                 <motion.span
                   key={p.x + p.y}
                   className="particle"
