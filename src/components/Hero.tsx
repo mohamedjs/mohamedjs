@@ -276,7 +276,7 @@ export default function Hero() {
                   </a>
                 </div>
                 <div className="feat-shot">
-                  <img src={featured.cover} alt={featured.name} loading="lazy" />
+                  <img src={featured.cover} alt={featured.name} loading="lazy" decoding="async" />
                 </div>
               </div>
             </motion.div>

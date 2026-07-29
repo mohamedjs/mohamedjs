@@ -70,7 +70,7 @@ function Lightbox({
           </>
         )}
         {item.kind === "image" ? (
-          <img src={item.src} alt={`${project.name} screenshot ${index + 1}`} />
+          <img src={item.src} alt={`${project.name} screenshot ${index + 1}`} loading="lazy" decoding="async" />
         ) : (
           <video
             src={item.src}
@@ -80,7 +80,7 @@ function Lightbox({
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
           />
         )}
       </motion.div>
@@ -107,7 +107,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.65, delay: (index % 2) * 0.1, ease: [0.2, 0.8, 0.2, 1] }}
     >
       <div className="project-media" onClick={() => setOpen(0)}>
-        <img src={project.cover} alt={project.name} loading="lazy" />
+        <img src={project.cover} alt={project.name} loading="lazy" decoding="async" />
         {project.video && (
           <span
             className="play-badge"
@@ -141,7 +141,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {items.map((m, i) =>
             m.kind === "image" ? (
               <button className="thumb" key={m.src} onClick={() => setOpen(i)} aria-label={`Open screenshot ${i + 1}`}>
-                <img src={m.src} alt="" loading="lazy" />
+                <img src={m.src} alt="" loading="lazy" decoding="async" />
               </button>
             ) : (
               <button className="thumb video-thumb" key={m.src} onClick={() => setOpen(i)} aria-label="Play demo video">

@@ -151,11 +151,7 @@ export const experiences: Experience[] = [
     bullets: [
       {
         title: "RESTful APIs",
-        body: "Developed APIs serving mobile and web applications with focus on performance and security, defining contracts with frontend teams to ensure optimal data flow.",
-      },
-      {
-        title: "Client Communication",
-        body: "Managed client communications providing technical guidance and project updates.",
+        body: "Developed APIs serving mobile and web applications with focus on performance and security, defining contracts with frontend teams.",
       },
     ],
     tags: ["PHP", "REST APIs", "MySQL"],
