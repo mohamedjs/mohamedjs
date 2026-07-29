@@ -258,13 +258,13 @@ export const projects: Project[] = [
   {
     slug: "ratatouille",
     name: "Ratatouille",
-    tagline: "Restaurant & Food Experience Platform",
+    tagline: "Movie Discovery & Entertainment Platform",
     description:
-      "A full-stack food platform with a rich, media-driven browsing experience — dynamic menus, ordering flows, and an admin back-office for managing content and operations.",
+      "A feature-rich movie discovery and streaming platform offering interactive trailer previews, rich media showcases, dynamic catalog filtering, and movie details.",
     highlights: [
-      "Media-rich menu browsing experience",
-      "End-to-end ordering flow",
-      "Admin back-office for content management",
+      "Media-rich movie catalog & trailer video playback",
+      "Dynamic genre filtering and search indexing",
+      "Interactive movie details, cast lists, and recommendations",
     ],
     stack: ["React", "Node.js", "REST APIs", "MySQL"],
     cover: `${BASE}projects/ratatouille/ratatouille-cover.webp`,
