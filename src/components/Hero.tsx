@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { profile, stats, projects } from "../data/portfolio";
 import Icon, { type IconName } from "./Icon";
 
@@ -31,28 +31,31 @@ const techChips: { name: IconName; title: string }[] = [
 ];
 
 const statIcons = [
-  // Projects Delivered — rocket
-  <svg key="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z" /><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z" /><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" /></svg>,
+  // Users Served — users/people
+  <svg key="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>,
+  // Orders / Day — shopping bag
+  <svg key="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18M16 10a4 4 0 0 1-8 0" /></svg>,
   // Years Experience — clock
-  <svg key="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>,
+  <svg key="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>,
   // Countries Served — globe
-  <svg key="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z" /></svg>,
-  // Design Patterns — puzzle / layers
-  <svg key="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>,
+  <svg key="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z" /></svg>,
 ];
 
 const particles = [
   { x: "8%", y: "22%", d: 0 },
   { x: "88%", y: "30%", d: 0.8 },
-  { x: "16%", y: "68%", d: 1.6 },
-  { x: "80%", y: "74%", d: 2.4 },
   { x: "50%", y: "12%", d: 3.2 },
-  { x: "26%", y: "44%", d: 4 },
 ];
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const [avatarOk, setAvatarOk] = useState(true);
+  const reducedMotion = useReducedMotion();
+
+  // Enable smooth scrolling after first paint (avoids Safari blocking initial render)
+  useEffect(() => {
+    requestAnimationFrame(() => document.documentElement.classList.add("smooth-scroll"));
+  }, []);
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -152,16 +155,16 @@ export default function Hero() {
               <div className="stage-glow" />
               <motion.div
                 className="orbit orbit-a"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+                animate={reducedMotion ? undefined : { rotate: 360 }}
+                transition={reducedMotion ? undefined : { duration: 26, repeat: Infinity, ease: "linear" }}
               />
               <motion.div
                 className="orbit orbit-b"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
+                animate={reducedMotion ? undefined : { rotate: -360 }}
+                transition={reducedMotion ? undefined : { duration: 38, repeat: Infinity, ease: "linear" }}
               />
 
-              {particles.map((p) => (
+              {!reducedMotion && particles.map((p) => (
                 <motion.span
                   key={p.x + p.y}
                   className="particle"
