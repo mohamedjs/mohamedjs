@@ -295,4 +295,29 @@ export const projects: Project[] = [
     video: `${BASE}projects/kidnap/kidnap-demo.mp4`,
     accent: "#ffd166",
   },
+  {
+    slug: "chat-app",
+    name: "Pro Chat",
+    tagline: "Full-Stack Real-Time Messaging Platform",
+    description:
+      "A modern, scalable chat application featuring real-time messaging, voice messages with waveform visualizer, media sharing, and WebRTC video/voice calls — built with Laravel, Next.js 15, Node.js sockets, MySQL, Redis, and Docker.",
+    highlights: [
+      "WebRTC video & voice calls with QuickBlox — full-screen call UI, mute, camera toggle, PiP self view",
+      "Real-time messaging via WebSockets & Laravel Echo with unread counters and live presence dots",
+      "Voice messages with inline Wavesurfer.js waveform visualizer",
+      "Soft 3D / Neumorphic design system — 30/70 sidebar/chat split with mobile-responsive composer",
+      "Dockerized full-stack: Nginx, PHP-FPM, Redis, MySQL, Node.js socket server",
+    ],
+    stack: ["Laravel", "Next.js 15", "Node.js", "WebRTC", "Redis", "MySQL", "Docker", "WebSockets"],
+    cover: `${BASE}projects/chat-app/chat-2.png`,
+    gallery: [
+      `${BASE}projects/chat-app/chat-2.png`,
+      `${BASE}projects/chat-app/chat-3.png`,
+      `${BASE}projects/chat-app/chat-4.png`,
+      `${BASE}projects/chat-app/chat-5.png`,
+      `${BASE}projects/chat-app/chat-6.png`,
+    ],
+    video: `${BASE}projects/chat-app/chat-demo.mp4`,
+    accent: "#06b6d4",
+  },
 ];
