@@ -320,4 +320,48 @@ export const projects: Project[] = [
     video: `${BASE}projects/chat-app/chat-demo.mp4`,
     accent: "#06b6d4",
   },
+  {
+    slug: "destinia",
+    name: "Destinia Mobile",
+    tagline: "White-Label Travel & Flight Booking App",
+    description:
+      "A high-performance React Native mobile travel application engineered for flight, hotel, and holiday reservations with real-time flight search, localized currency selection, and seamless booking flows.",
+    highlights: [
+      "White-label React Native app architecture with dynamic runtime branding injections",
+      "Real-time high-concurrency flight and hotel booking search integration",
+      "Multi-currency B2B & B2C wallet management and localized payment gateways",
+      "Smooth mobile UX with interactive itinerary selection and instant e-ticket generation",
+    ],
+    stack: ["React Native", "Expo", "TypeScript", "FastAPI", "Redux Toolkit", "Laravel"],
+    cover: `${BASE}projects/destinia/destinia-cover.jpg`,
+    gallery: [
+      `${BASE}projects/destinia/destinia-2.jpg`,
+      `${BASE}projects/destinia/destinia-3.jpg`,
+    ],
+    video: `${BASE}projects/destinia/destinia-demo.mp4`,
+    accent: "#3b82f6",
+  },
+  {
+    slug: "mazaya",
+    name: "Mazaya Travel & Rewards",
+    tagline: "Mobile Travel Deals & Package Booking",
+    description:
+      "A modern React Native mobile app engineered for travel deals, exclusive partner rewards, and hotel/flight package bookings with instant discount redemptions and real-time order tracking.",
+    highlights: [
+      "Custom travel package builder & exclusive member rewards engine",
+      "Interactive search with filters for flights, hotels, and holiday activities",
+      "Push notifications & real-time trip status updates",
+      "Optimized mobile UI/UX with intuitive checkout and digital voucher storage",
+    ],
+    stack: ["React Native", "Expo", "TypeScript", "Redux Toolkit", "REST APIs", "Node.js"],
+    cover: `${BASE}projects/mazaya/mazaya-cover.png`,
+    gallery: [
+      `${BASE}projects/mazaya/mazaya-2.png`,
+      `${BASE}projects/mazaya/mazaya-3.png`,
+      `${BASE}projects/mazaya/mazaya-4.png`,
+      `${BASE}projects/mazaya/mazaya-5.png`,
+    ],
+    video: `${BASE}projects/mazaya/mazaya-demo.mp4`,
+    accent: "#10b981",
+  },
 ];
