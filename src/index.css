@@ -1587,3 +1587,68 @@ button {
     transform: none;
   }
 }
+
+/* ── Video popup modal ───────────────────────── */
+.video-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 1.5rem;
+}
+
+.video-popup {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-soft);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 0 60px rgba(124, 92, 255, 0.25), 0 0 120px rgba(180, 77, 255, 0.1);
+}
+
+.video-popup iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.video-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 600px) {
+  .video-popup {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+  .video-close {
+    top: -36px;
+  }
+}

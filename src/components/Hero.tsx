@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { profile, stats, projects } from "../data/portfolio";
 import Icon, { type IconName } from "./Icon";
 
@@ -58,6 +58,7 @@ const particles = [
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const [avatarOk, setAvatarOk] = useState(true);
+  const [showVideo, setShowVideo] = useState(false);
   const reducedMotion = useReducedMotion();
   const skipAnimations = IS_MOBILE || reducedMotion;
 
@@ -125,14 +126,14 @@ export default function Hero() {
                   </svg>
                 </span>
               </a>
-              <a className="btn-ghost" href="https://drive.google.com/file/d/1IBQLETHPBBTB4rehMVSzvvlW8r05rm1T/view?usp=sharing" target="_blank" rel="noreferrer">
+              <button className="btn-ghost" onClick={() => setShowVideo(true)} type="button">
                 <span className="play">
                   <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M7 4v16l13-8z" />
                   </svg>
                 </span>
                 Watch Intro
-              </a>
+              </button>
             </div>
             <div className="hero-socials">
               <span className="label">
@@ -318,6 +319,40 @@ export default function Hero() {
           ))}
         </motion.div>
       </div>
+
+      {/* ── Video modal ──────────────────────────── */}
+      <AnimatePresence>
+        {showVideo && (
+          <motion.div
+            className="video-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowVideo(false)}
+          >
+            <motion.div
+              className="video-popup"
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="video-close" onClick={() => setShowVideo(false)} aria-label="Close video">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+              </button>
+              <iframe
+                src="https://drive.google.com/file/d/1IBQLETHPBBTB4rehMVSzvvlW8r05rm1T/preview"
+                title="Intro Video"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
