@@ -125,13 +125,13 @@ export default function Hero() {
                   </svg>
                 </span>
               </a>
-              <a className="btn-ghost" href={profile.resume} target="_blank" rel="noreferrer">
+              <a className="btn-ghost" href="https://drive.google.com/file/d/1IBQLETHPBBTB4rehMVSzvvlW8r05rm1T/view?usp=sharing" target="_blank" rel="noreferrer">
                 <span className="play">
                   <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M7 4v16l13-8z" />
                   </svg>
                 </span>
-                View Résumé
+                Watch Intro
               </a>
             </div>
             <div className="hero-socials">
