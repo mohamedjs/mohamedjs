@@ -1652,3 +1652,116 @@ button {
     top: -36px;
   }
 }
+
+/* ── Mascot rig: the hero character ropes down the page ──────────────── */
+/* above the content, below .nav (50); he shrinks to about half size once he
+   is on the rope so he stays out of the way of the copy */
+.mascot-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.mascot-fx {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.mascot-figure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  will-change: transform;
+}
+
+/* All three artworks are pinned so their visors coincide; --pose-t (written
+   by the rig each frame) crossfades between them, and the theme decides which
+   swing artwork that blend applies to — the bulb is warm on dark, blue on
+   light, so each theme gets the matching render. */
+.mc-pose {
+  position: absolute;
+  object-fit: fill;
+  filter: drop-shadow(0 24px 60px rgba(124, 92, 255, 0.45));
+}
+.mc-rest { opacity: calc(1 - var(--pose-t, 0)); }
+.mc-swing { opacity: var(--pose-t, 0); }
+.mc-swing-light { opacity: 0; }
+:root[data-theme="light"] .mc-swing { opacity: 0; }
+:root[data-theme="light"] .mc-swing-light { opacity: var(--pose-t, 0); }
+:root[data-theme="light"] .mc-pose {
+  filter: drop-shadow(0 20px 46px rgba(26, 14, 62, 0.22));
+}
+
+/* the SVG mascot stands in for the hero bitmap, so hide the original —
+   but only where the rig actually runs */
+@media (min-width: 861px) {
+  html.mascot-rig-on .avatar-media { visibility: hidden; }
+}
+@media (max-width: 860px), (prefers-reduced-motion: reduce) {
+  .mascot-layer { display: none; }
+}
+
+/* ── rope + bulb light ───────────────────────────────────────────────── */
+/* stroke-width is set per frame to match the braid painted into the artwork */
+.rope {
+  fill: none;
+  stroke: #dbe9ff;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 7px rgba(120, 165, 255, 0.95))
+    drop-shadow(0 0 18px rgba(90, 130, 255, 0.55));
+}
+:root[data-theme="light"] .rope { stroke: rgba(60, 90, 180, 0.75); }
+
+.bulb-cone {
+  fill: url(#coneWarm);
+  filter: blur(9px);
+}
+.bulb-pool { fill: url(#poolWarm); }
+:root[data-theme="light"] .bulb-cone { fill: url(#coneCool); }
+:root[data-theme="light"] .bulb-pool { fill: url(#poolCool); }
+.bulb-spark {
+  fill: #fff6e2;
+  filter: drop-shadow(0 0 10px #ffd489) drop-shadow(0 0 26px #ffb347);
+}
+:root[data-theme="light"] .bulb-spark {
+  fill: #2f6fe0;
+  filter: drop-shadow(0 0 10px rgba(61, 134, 255, 0.85));
+}
+
+/* the section the bulb is currently lighting */
+.lamp-lit { position: relative; }
+.lamp-lit::before {
+  content: "";
+  position: absolute;
+  inset: 24px -4vw;
+  border-radius: 44px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 74% 26%,
+    rgba(255, 179, 71, 0.2),
+    rgba(124, 92, 255, 0.1) 46%,
+    transparent 74%
+  );
+  animation: lamp-sweep 1.2s ease-out forwards;
+}
+:root[data-theme="light"] .lamp-lit::before {
+  background: radial-gradient(
+    ellipse at 74% 26%,
+    rgba(61, 134, 255, 0.2),
+    rgba(124, 92, 255, 0.1) 46%,
+    transparent 74%
+  );
+}
+
+@keyframes lamp-sweep {
+  0% { opacity: 0; }
+  14% { opacity: 1; }
+  34% { opacity: 0.5; }
+  48% { opacity: 0.95; }
+  100% { opacity: 0; }
+}

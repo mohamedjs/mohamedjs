@@ -1,4 +1,5 @@
 import Nav from "./components/Nav";
+import MascotRig from "./components/MascotRig";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import { Skills, Experience, Education, Contact, Footer } from "./components/Sections";
@@ -13,6 +14,7 @@ export default function App() {
       </div>
       <div className="bg-grid" aria-hidden />
 
+      <MascotRig />
       <Nav />
       <main>
         <Hero />
