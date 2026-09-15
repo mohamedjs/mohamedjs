@@ -38,7 +38,7 @@ export const profile = {
 };
 
 export const stats = [
-  { value: "5M+", label: "Users Served" },
+  { value: "20+", label: "Projects Delivered" },
   { value: "500+", label: "Orders / Day" },
   { value: "7+", label: "Years Experience" },
   { value: "4", label: "Countries Served" },
