@@ -1,8 +1,10 @@
 /** scroll distance over which he swaps from standing in the hero to hanging */
 export const HOOK_UP = 260;
-/** he shrinks once he is on the rope, so he reads as a companion rather than
- *  a billboard sitting on top of the content */
-const HANG_SCALE = 0.52;
+/** He shrinks once he is on the rope, so he reads as a companion rather than
+ *  a billboard sitting on top of the content — and smaller again on a phone,
+ *  where the viewport is narrow and he has far less room to spare. */
+export const HANG_SCALE = 0.52;
+export const HANG_SCALE_NARROW = 0.34;
 /** how far below the viewport top he hangs once he is on the rope */
 const HANG_TOP = 24;
 const HANG_BOTTOM_GAP = 40;
@@ -83,6 +85,8 @@ export type RigInput = {
   footDrop: number;
   px: number;
   sway: number;
+  /** HANG_SCALE, or HANG_SCALE_NARROW on a phone */
+  hangScale: number;
 };
 
 /** Where the mascot should be this frame.
@@ -93,7 +97,7 @@ export type RigInput = {
 export function rigFrame(i: RigInput) {
   const p = clamp01(i.scrollY / i.scrollable);
   const t = clamp01(i.scrollY / HOOK_UP);
-  const k = lerp(1, HANG_SCALE, t);
+  const k = lerp(1, i.hangScale, t);
   const homeY = i.homeDocY - i.scrollY;
   const hangY = lerp(
     i.headUp * k + HANG_TOP,

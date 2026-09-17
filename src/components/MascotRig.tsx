@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import {
   BULB,
+  HANG_SCALE,
+  HANG_SCALE_NARROW,
   REST,
   ROPE_GRIP,
   ROPE_W,
@@ -14,6 +16,15 @@ import {
 const SECTIONS = ["#home", "#skills", "#experience", "#projects", "#education", "#contact"];
 
 const url = (src: string) => `${import.meta.env.BASE_URL}${src}`;
+
+/** Touch devices have no cursor to aim the lamp at, so the beam and the spark
+ *  are dropped there — they would just sit frozen wherever the last tap was,
+ *  and the blurred cone is the most expensive thing the rig paints. */
+const IS_TOUCH =
+  typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+
+/** Width, not pointer type: a narrow viewport is what makes him too big. */
+const isNarrow = () => innerWidth < 768;
 
 export default function MascotRig() {
   const figRef = useRef<HTMLDivElement>(null);
@@ -29,9 +40,15 @@ export default function MascotRig() {
   /** if the swinging artwork is missing, keep the resting pose rather than
    *  leaving a hole where the character should be */
   const [hasSwing, setHasSwing] = useState(true);
+  /** The two swing artworks are ~250K that nothing needs until the first
+   *  scroll, and mounting them up front makes them race the preloaded hero
+   *  image for bandwidth — which is exactly the wrong trade on a phone.
+   *  They mount on idle, or on the first scroll, whichever lands first. */
+  const [armed, setArmed] = useState(false);
+  const remeasure = useRef<() => void>(() => {});
 
   useEffect(() => {
-    if (window.matchMedia("(max-width: 860px), (prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const stage = document.querySelector<HTMLElement>(".avatar-media");
     const fig = figRef.current;
@@ -48,6 +65,7 @@ export default function MascotRig() {
     let bulb = { x: 0, y: 0 };
     let grip = { x: 0, y: 0 };
     let ropeW = 3;
+    let hangScale = HANG_SCALE;
 
     const measure = () => {
       let el: HTMLElement | null = stage;
@@ -92,21 +110,51 @@ export default function MascotRig() {
       bulb = { x: w.left + BULB.x * w.width, y: w.top + BULB.y * w.height };
       grip = { x: w.left + ROPE_GRIP.x * w.width, y: w.top + ROPE_GRIP.y * w.height };
       ropeW = w.width * ROPE_W;
+      hangScale = isNarrow() ? HANG_SCALE_NARROW : HANG_SCALE;
+    };
+    remeasure.current = () => {
+      measure();
+      wake();
     };
     measure();
     document.documentElement.classList.add("mascot-rig-on");
+    if (IS_TOUCH) document.documentElement.classList.add("mascot-touch");
 
     let raf = 0;
     let flash = 0;
+    let settled = 0;
     const tgt = { px: innerWidth * 0.5, py: innerHeight * 0.5 };
     const cur = { x: homeX, y: homeDocY, px: tgt.px, py: tgt.py };
+
+    /** The loop parks itself once everything has come to rest, so a phone is
+     *  not running a rAF forever behind a static page. Anything that can move
+     *  him has to wake it — scroll, pointer, resize, AND the section observer,
+     *  which fires the lamp flash without a scroll event of its own. */
+    function wake() {
+      settled = 0;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
 
     const onMove = (e: PointerEvent) => {
       tgt.px = e.clientX;
       tgt.py = e.clientY;
+      wake();
+    };
+    const onScroll = () => {
+      setArmed(true);
+      wake();
+    };
+    const onResize = () => {
+      measure();
+      wake();
     };
     addEventListener("pointermove", onMove, { passive: true });
-    addEventListener("resize", measure);
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onResize);
+
+    // mount the swing artwork once the page has settled, if a scroll has not
+    // already asked for it — well clear of the hero image's own load
+    const idle = window.setTimeout(() => setArmed(true), 1800);
 
     // --- active section -> lamp sweep ------------------------------------
     let lit: Element | null = null;
@@ -124,6 +172,7 @@ export default function MascotRig() {
         lit = visible.target;
         lit.classList.add("lamp-lit");
         flash = 1;
+        wake();
         clearTimeout(litTimer);
         litTimer = window.setTimeout(() => lit?.classList.remove("lamp-lit"), 1200);
       },
@@ -132,8 +181,10 @@ export default function MascotRig() {
     els.forEach((el) => observer.observe(el));
 
     // --- render loop ------------------------------------------------------
-    const tick = () => {
-      raf = requestAnimationFrame(tick);
+    function tick() {
+      raf = 0;
+      const figEl = figRef.current;
+      if (!figEl) return;
 
       const f = rigFrame({
         scrollY,
@@ -144,8 +195,10 @@ export default function MascotRig() {
         headUp,
         footDrop,
         px: tgt.px,
-        // he only sways once he is actually on the rope
-        sway: Math.sin(performance.now() / 1500) * 10,
+        hangScale,
+        // He only sways once he is actually on the rope — and never on touch,
+        // where an endless sine would keep the loop awake for no benefit.
+        sway: IS_TOUCH ? 0 : Math.sin(performance.now() / 1500) * 10,
       });
 
       cur.x += (f.x - cur.x) * 0.09;
@@ -154,9 +207,14 @@ export default function MascotRig() {
       cur.py += (tgt.py - cur.py) * 0.16;
       flash *= 0.95;
 
-      fig.style.transform = `translate3d(${cur.x}px, ${cur.y}px, 0) scale(${f.k})`;
+      figEl.style.transform = `translate3d(${cur.x}px, ${cur.y}px, 0) scale(${f.k})`;
+      // Hold the resting pose until the themed swing artwork has actually
+      // decoded, or a slow connection shows him fading out into nothing.
+      const swung =
+        document.documentElement.dataset.theme === "light" ? swingLightRef : swingRef;
+      const t = swung.current?.complete && swung.current.naturalWidth ? f.t : 0;
       // CSS turns this into the crossfade AND picks the themed swing artwork
-      fig.style.setProperty("--pose-t", String(f.t));
+      figEl.style.setProperty("--pose-t", String(t));
 
       // the whole strand is ours to draw: anchored off the top of the page,
       // running down into his raised fist
@@ -166,53 +224,72 @@ export default function MascotRig() {
       if (rope) {
         rope.setAttribute("d", `M ${ex + 70 * f.k} -24 Q ${ex + 46 * f.k} ${ey * 0.5} ${ex} ${ey}`);
         rope.setAttribute("stroke-width", String(ropeW * f.k));
-        rope.style.opacity = String(f.t);
+        rope.style.opacity = String(t);
       }
 
       // the bulb throws light at wherever the cursor is
       const bx = cur.x + bulb.x * f.k;
       const by = cur.y + bulb.y * f.k;
-      const dx = cur.px - bx;
-      const dy = cur.py - by;
-      const dist = Math.hypot(dx, dy) || 1;
-      const spread = 22 + dist * 0.26;
-      const nx = (-dy / dist) * spread;
-      const ny = (dx / dist) * spread;
-      coneRef.current?.setAttribute(
-        "d",
-        `M ${bx} ${by} L ${cur.px + nx} ${cur.py + ny} L ${cur.px - nx} ${cur.py - ny} Z`,
-      );
-      // both themed cone gradients track the beam; CSS picks which one paints
-      for (const cg of [coneGradRef.current, coneGradLightRef.current]) {
-        if (!cg) continue;
-        cg.setAttribute("x1", String(bx));
-        cg.setAttribute("y1", String(by));
-        cg.setAttribute("x2", String(cur.px));
-        cg.setAttribute("y2", String(cur.py));
+      const lampOn = t * (0.72 + flash * 0.28);
+
+      if (!IS_TOUCH) {
+        const dx = cur.px - bx;
+        const dy = cur.py - by;
+        const dist = Math.hypot(dx, dy) || 1;
+        const spread = 22 + dist * 0.26;
+        const nx = (-dy / dist) * spread;
+        const ny = (dx / dist) * spread;
+        coneRef.current?.setAttribute(
+          "d",
+          `M ${bx} ${by} L ${cur.px + nx} ${cur.py + ny} L ${cur.px - nx} ${cur.py - ny} Z`,
+        );
+        // both themed cone gradients track the beam; CSS picks which one paints
+        for (const cg of [coneGradRef.current, coneGradLightRef.current]) {
+          if (!cg) continue;
+          cg.setAttribute("x1", String(bx));
+          cg.setAttribute("y1", String(by));
+          cg.setAttribute("x2", String(cur.px));
+          cg.setAttribute("y2", String(cur.py));
+        }
+        if (coneRef.current) coneRef.current.style.opacity = String(lampOn * 0.8);
+        glowRef.current?.setAttribute("cx", String(cur.px));
+        glowRef.current?.setAttribute("cy", String(cur.py));
+        if (glowRef.current) glowRef.current.style.opacity = String(lampOn);
       }
 
-      const lampOn = f.t * (0.72 + flash * 0.28);
-      if (coneRef.current) coneRef.current.style.opacity = String(lampOn * 0.8);
       poolRef.current?.setAttribute("cx", String(bx));
       poolRef.current?.setAttribute("cy", String(by));
       poolRef.current?.setAttribute("r", String(210 + flash * 150));
       if (poolRef.current) poolRef.current.style.opacity = String(lampOn);
-      glowRef.current?.setAttribute("cx", String(cur.px));
-      glowRef.current?.setAttribute("cy", String(cur.py));
-      if (glowRef.current) glowRef.current.style.opacity = String(lampOn);
-    };
+
+      const moving =
+        Math.abs(f.x - cur.x) > 0.05 ||
+        Math.abs(f.y - cur.y) > 0.05 ||
+        Math.abs(tgt.px - cur.px) > 0.05 ||
+        Math.abs(tgt.py - cur.py) > 0.05 ||
+        flash > 0.01;
+      settled = moving ? 0 : settled + 1;
+      if (settled < 4) raf = requestAnimationFrame(tick);
+    }
     tick();
 
     return () => {
       cancelAnimationFrame(raf);
       clearTimeout(litTimer);
+      clearTimeout(idle);
       observer.disconnect();
       removeEventListener("pointermove", onMove);
-      removeEventListener("resize", measure);
+      removeEventListener("scroll", onScroll);
+      removeEventListener("resize", onResize);
       lit?.classList.remove("lamp-lit");
-      document.documentElement.classList.remove("mascot-rig-on");
+      document.documentElement.classList.remove("mascot-rig-on", "mascot-touch");
     };
   }, []);
+
+  // the swing artwork only exists once armed, so it needs sizing then
+  useEffect(() => {
+    if (armed) remeasure.current();
+  }, [armed]);
 
   return (
     <div className="mascot-layer" aria-hidden>
@@ -250,13 +327,16 @@ export default function MascotRig() {
 
       <div className="mascot-figure" ref={figRef}>
         <img ref={restRef} className="mc-pose mc-rest" src={url(REST.src)} alt="" />
-        {hasSwing && (
+        {hasSwing && armed && (
           <>
             <img
               ref={swingRef}
               className="mc-pose mc-swing"
               src={url(SWING.src)}
               alt=""
+              fetchPriority="low"
+              decoding="async"
+              onLoad={() => remeasure.current()}
               onError={() => setHasSwing(false)}
             />
             <img
@@ -264,6 +344,9 @@ export default function MascotRig() {
               className="mc-pose mc-swing-light"
               src={url(SWING.srcLight ?? SWING.src)}
               alt=""
+              fetchPriority="low"
+              decoding="async"
+              onLoad={() => remeasure.current()}
             />
           </>
         )}

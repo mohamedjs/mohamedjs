@@ -1697,14 +1697,20 @@ button {
   filter: drop-shadow(0 20px 46px rgba(26, 14, 62, 0.22));
 }
 
-/* the SVG mascot stands in for the hero bitmap, so hide the original —
-   but only where the rig actually runs */
-@media (min-width: 861px) {
-  html.mascot-rig-on .avatar-media { visibility: hidden; }
-}
-@media (max-width: 860px), (prefers-reduced-motion: reduce) {
+/* The rig stands in for the hero bitmap, so hide the original — gated on the
+   class, which only exists while the rig is actually running, so the bitmap
+   stays put when the rig bails out. */
+html.mascot-rig-on .avatar-media { visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
   .mascot-layer { display: none; }
 }
+
+/* No cursor to aim at on touch, so the beam and its spark are dropped — the
+   blurred cone is the most expensive thing here and would only sit frozen
+   wherever the last tap landed. The bulb's own pool stays. */
+html.mascot-touch .bulb-cone,
+html.mascot-touch .bulb-spark { display: none; }
 
 /* ── rope + bulb light ───────────────────────────────────────────────── */
 /* stroke-width is set per frame to match the braid painted into the artwork */
