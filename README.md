@@ -2,7 +2,7 @@
 
 ### Technical Lead & Senior Software Engineer · Cairo, Egypt
 
-High-impact **Technical Lead & Senior Software Engineer** with **7+ years** architecting, scaling, and engineering mission-critical backend systems, cross-platform mobile apps, and AI-driven automation. I build fault-tolerant, polyglot microservices (Python/FastAPI, PHP/Laravel, Node.js) and multi-tenant SaaS platforms for B2B/B2C.
+**Technical Lead & full-stack engineer** with **7+ years** across web, backend and mobile. At Tripklik I lead the frontend team (3 engineers), mentor backend engineers, and work on the architecture of a travel booking platform serving **1M+ users a month** (Next.js, Laravel, FastAPI, React Native).
 
 🌐 **Live Portfolio → [mohamedjs.github.io/mohamedjs](https://mohamedjs.github.io/mohamedjs/)**
 
@@ -92,11 +92,10 @@ Helps locate missing children using facial recognition, matching reported sighti
 ### Technical Lead *(Oct 2024 – Present)* & Senior Software Engineer *(Oct 2022 – Oct 2024)*
 **Tripklik** — Riyadh, KSA (Remote)
 
-- **Polyglot Distributed Architecture:** Architected an enterprise-grade travel booking ecosystem using FastAPI for high-concurrency flight/hotel search aggregation and Laravel for core transactional booking and B2B financial ledgers.
-- **FastAPI Aggregation & Flight Fulfillment:** Engineered the provider integration engine using a Factory Pattern and Unified Schema Mapper to standardize payloads across Amadeus, Hotelbeds and Flyadeal.
-- **Enterprise API Resilience:** Built a resilience overlay with Circuit Breakers, provider-aware adaptive throttling, and exponential backoff to protect infrastructure from supplier downtimes.
-- **Financial Core & B2B Accounting:** Designed a multi-currency conversion engine (Supplier → Base → Client) with B2B Pocket Management on ACID-compliant MySQL ledgers and a Payment Gateway Factory (Stripe, PayPal, B2B wallets).
-- **Advanced State Management & EDA:** Implemented a shared Redis State Machine bridging Python microservices and the PHP booking engine, with event-driven background queues for cross-service auto-booking.
+- **Team Leadership:** Lead the frontend team (3 engineers) and mentor 2–3 backend engineers on a platform serving 1M+ users a month and 5,000+ searches and orders.
+- **Platform Architecture:** Work with the engineering lead on architecture and design patterns across the FastAPI supplier-integration layer (Amadeus, Hotelbeds, Flyadeal) and the Laravel booking and B2B finance core.
+- **Design Reviews:** Took part in the design of supplier resilience (circuit breakers, adaptive throttling, backoff), multi-currency B2B wallets on ACID ledgers, and event-driven queues.
+- **B2B Order Operations:** Shipped void, refunds, PNR import, hold orders, invoices and role-based permissions; delivered eSIM, baggage protection and blind-choice fares in Laravel.
 - **Next.js Multi-Tenant Frontend:** Spearheaded a decoupled multi-brand architecture on Vercel with Edge Middleware for subdomain routing and environment-driven S3 CSS asset injection.
 - **High-Speed Autocomplete:** Integrated Meilisearch as an inverted index service via direct Nginx routing.
 - **Mobile Multi-Branding (Destinia, Tripklik):** Developed a React Native architecture with runtime environment injections for white-labeled builds from a singular codebase.

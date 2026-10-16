@@ -113,9 +113,9 @@ export default function Hero() {
             <p className="hero-summary">
               Technical Lead of a travel platform
               <br />
-              serving 1M+ users a month. I architect fast,
+              serving 1M+ users a month. I build fast
               <br />
-              fault-tolerant backends and web apps.
+              web apps and reliable backends.
             </p>
             <div className="hero-actions">
               <a className="btn-primary" href="#projects">
