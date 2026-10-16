@@ -34,7 +34,7 @@ export const profile = {
   avatar: `${BASE}avatar.webp`,
   resume: `${BASE}mohamed-mahmoud-cv.pdf`,
   summary:
-    "Technical Lead behind a travel booking platform serving 1M+ users a month. I lead the frontend team, mentor backend engineers, and build with Next.js, React Native, Laravel and Node.js.",
+    "Technical Lead behind a travel booking platform serving 1M+ users a month. I design and build across backend, web and mobile, from architecture to release.",
 };
 
 export const stats = [
@@ -81,19 +81,19 @@ export const skillGroups = [
 
 export const experiences: Experience[] = [
   {
-    role: "Technical Lead, Frontend (since Oct 2024) · Senior Software Engineer",
+    role: "Technical Lead (since Oct 2024) · Senior Software Engineer",
     company: "Tripklik",
     location: "Riyadh, KSA (Remote)",
     period: "Oct 2022 — Present",
     current: true,
     bullets: [
       {
-        title: "Team Leadership",
-        body: "Lead the frontend team (3 engineers) and mentor 2–3 backend engineers on a travel booking platform serving 1M+ users a month and 5,000+ searches and orders.",
+        title: "Technical Leadership",
+        body: "Lead engineering on a travel booking platform serving 1M+ users a month and 5,000+ searches and orders: architecture, code review and release decisions across backend, web and mobile.",
       },
       {
         title: "Platform Architecture",
-        body: "Work with the engineering lead on architecture and design patterns across the FastAPI (Python) supplier-integration layer for Amadeus, Hotelbeds and Flyadeal and the Laravel booking and B2B finance core.",
+        body: "Take part in architecture and design-pattern decisions across the FastAPI (Python) supplier-integration layer for Amadeus, Hotelbeds and Flyadeal and the Laravel booking and B2B finance core.",
       },
       {
         title: "Design Reviews",
@@ -101,7 +101,7 @@ export const experiences: Experience[] = [
       },
       {
         title: "B2B Order Operations",
-        body: "Shipped void with fee preview, refunds, PNR retrieval and import, hold orders, invoices, balances, top-ups and role-based permissions; delivered eSIM, baggage protection and blind-choice fares in the Laravel flight backend.",
+        body: "Shipped void with fee preview, refunds, PNR retrieval and import, hold orders, invoices, balances, top-ups and role-based permissions;.",
       },
       {
         title: "Next.js Multi-Tenant Frontend",

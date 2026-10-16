@@ -2,7 +2,7 @@
 
 ### Technical Lead & Senior Software Engineer · Cairo, Egypt
 
-**Technical Lead & full-stack engineer** with **7+ years** across web, backend and mobile. At Tripklik I lead the frontend team (3 engineers), mentor backend engineers, and work on the architecture of a travel booking platform serving **1M+ users a month** (Next.js, Laravel, FastAPI, React Native).
+**Technical Lead & full-stack engineer** with **7+ years** across web, backend and mobile. At Tripklik I lead engineering and take part in the architecture of a travel booking platform serving **1M+ users a month** (FastAPI, Laravel, Next.js, React Native).
 
 🌐 **Live Portfolio → [mohamedjs.github.io/mohamedjs](https://mohamedjs.github.io/mohamedjs/)**
 
@@ -92,10 +92,10 @@ Helps locate missing children using facial recognition, matching reported sighti
 ### Technical Lead *(Oct 2024 – Present)* & Senior Software Engineer *(Oct 2022 – Oct 2024)*
 **Tripklik** — Riyadh, KSA (Remote)
 
-- **Team Leadership:** Lead the frontend team (3 engineers) and mentor 2–3 backend engineers on a platform serving 1M+ users a month and 5,000+ searches and orders.
-- **Platform Architecture:** Work with the engineering lead on architecture and design patterns across the FastAPI supplier-integration layer (Amadeus, Hotelbeds, Flyadeal) and the Laravel booking and B2B finance core.
+- **Technical Leadership:** Lead engineering on a platform serving 1M+ users a month and 5,000+ searches and orders: architecture, code review and release decisions.
+- **Platform Architecture:** Take part in architecture and design patterns across the FastAPI supplier-integration layer (Amadeus, Hotelbeds, Flyadeal) and the Laravel booking and B2B finance core.
 - **Design Reviews:** Took part in the design of supplier resilience (circuit breakers, adaptive throttling, backoff), multi-currency B2B wallets on ACID ledgers, and event-driven queues.
-- **B2B Order Operations:** Shipped void, refunds, PNR import, hold orders, invoices and role-based permissions; delivered eSIM, baggage protection and blind-choice fares in Laravel.
+- **B2B Order Operations:** Shipped void, refunds, PNR import, hold orders, invoices and role-based permissions.
 - **Next.js Multi-Tenant Frontend:** Spearheaded a decoupled multi-brand architecture on Vercel with Edge Middleware for subdomain routing and environment-driven S3 CSS asset injection.
 - **High-Speed Autocomplete:** Integrated Meilisearch as an inverted index service via direct Nginx routing.
 - **Mobile Multi-Branding (Destinia, Tripklik):** Developed a React Native architecture with runtime environment injections for white-labeled builds from a singular codebase.
