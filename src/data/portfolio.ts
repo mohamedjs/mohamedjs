@@ -34,7 +34,7 @@ export const profile = {
   avatar: `${BASE}avatar.webp`,
   resume: `${BASE}mohamed-mahmoud-cv.pdf`,
   summary:
-    "Technical Lead behind a travel booking platform serving 1M+ users a month. I design and build across backend, web and mobile, from architecture to release.",
+    "Technical Lead behind a travel booking platform serving 1M+ users a month. Laravel at the core; I design and build across backend, web and mobile, from architecture to release.",
 };
 
 export const stats = [
@@ -92,36 +92,40 @@ export const experiences: Experience[] = [
         body: "Lead engineering on a travel booking platform serving 1M+ users a month and 5,000+ searches and orders: architecture, code review and release decisions across backend, web and mobile.",
       },
       {
-        title: "Platform Architecture",
-        body: "Take part in architecture and design-pattern decisions across the FastAPI (Python) supplier-integration layer for Amadeus, Hotelbeds and Flyadeal and the Laravel booking and B2B finance core.",
+        title: "Concurrent Search Architecture",
+        body: "Took part in designing concurrent search across all suppliers (Amadeus, Hotelbeds, Flyadeal) with background workers and queues; clients poll for results as suppliers respond, and circuit breakers isolate failing suppliers so the search returns what arrived.",
       },
       {
-        title: "Design Reviews",
-        body: "Took part in the design of supplier resilience (circuit breakers, adaptive throttling, backoff), multi-currency B2B wallets on ACID MySQL ledgers, and event-driven queues for notifications and auto-booking.",
+        title: "Search & API Performance",
+        body: "Hotel and flight results about 4× faster after indexing, polling and queue-based processing; API request/response about 5× faster after moving the Python search service from SQLAlchemy-based JSON to a Rust-based serializer.",
       },
       {
-        title: "B2B Order Operations",
-        body: "Shipped void with fee preview, refunds, PNR retrieval and import, hold orders, invoices, balances, top-ups and role-based permissions;.",
+        title: "Hotel Mapping",
+        body: "Worked on the Central Station service that maps every hotel across all providers to a single record, so results from different suppliers merge and match quickly.",
       },
       {
-        title: "Next.js Multi-Tenant Frontend",
-        body: "Spearheaded a decoupled multi-brand architecture on Vercel — Edge Middleware for subdomain routing, environment-driven S3 CSS injection, and centralized Axios interceptors.",
+        title: "Order State Machine",
+        body: "Moved order handling onto an explicit state machine and shipped B2B order operations end to end: void, refunds, PNR import, hold orders, invoices, balances and top-ups.",
       },
       {
-        title: "Frontend Performance",
-        body: "Cut the middleware bundle by 62%, the main app bundle by 14% and First Load JS by 12%; made flight-result filters 7× faster with Map indexes and a virtualized results list.",
+        title: "Laravel Booking & Finance Core",
+        body: "Built eSIM, baggage protection and blind-choice fares behind feature flags and fixed markup calculations; worked on multi-currency conversion, agency wallets on ACID MySQL ledgers and a payment-gateway factory.",
       },
       {
-        title: "AI Assistants via MCP",
-        body: "Connected the booking engine to Claude and ChatGPT through the Model Context Protocol: live flight and hotel search with agency pricing, and secure deep links back into the portal to book.",
+        title: "Multi-Tenant Scalability",
+        body: "One codebase serves the consumer site, the agency portal and several brands, so onboarding a new agency or brand is configuration rather than new code.",
       },
       {
-        title: "Auth & Permission Gate",
-        body: "Built the edge-middleware authentication and permission layer (route-to-permission map, OTP enforcement) and scoped single-purpose tokens for AI-originated deep links.",
+        title: "Authentication & Permissions",
+        body: "End-to-end auth across API and web: OTP sign-in, role-based permissions enforced in the API and at the edge, and scoped short-lived tokens for links from AI assistants.",
+      },
+      {
+        title: "AI Integration",
+        body: "Built an MCP server connecting the booking engine to Claude and ChatGPT, and worked on a WhatsApp integration with Claude so agencies can continue a booking from chat.",
       },
       {
         title: "Mobile Multi-Branding",
-        body: "Developed a React Native architecture with runtime environment injections to ship distinct white-labeled apps (Destinia, Tripklik) from a singular codebase.",
+        body: "Led the React Native 0.85 + Expo SDK 56 modernization of the multi-brand apps (Destinia, Tripklik) with EAS multi-brand builds and per-brand runtime configuration.",
       },
     ],
     tags: ["FastAPI", "Laravel", "Next.js", "React Native", "Redis", "MySQL", "Meilisearch", "Docker", "Vercel"],

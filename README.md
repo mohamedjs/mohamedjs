@@ -2,7 +2,7 @@
 
 ### Technical Lead & Senior Software Engineer · Cairo, Egypt
 
-**Technical Lead & full-stack engineer** with **7+ years** across web, backend and mobile. At Tripklik I lead engineering and take part in the architecture of a travel booking platform serving **1M+ users a month** (FastAPI, Laravel, Next.js, React Native).
+**Senior Software Engineer & Technical Lead** with **7+ years** across backend, web and mobile, with Laravel as my core stack. At Tripklik I lead engineering and take part in the architecture of a travel booking platform serving **1M+ users a month** (FastAPI, Laravel, Next.js, React Native).
 
 🌐 **Live Portfolio → [mohamedjs.github.io/mohamedjs](https://mohamedjs.github.io/mohamedjs/)**
 
@@ -92,13 +92,16 @@ Helps locate missing children using facial recognition, matching reported sighti
 ### Technical Lead *(Oct 2024 – Present)* & Senior Software Engineer *(Oct 2022 – Oct 2024)*
 **Tripklik** — Riyadh, KSA (Remote)
 
-- **Technical Leadership:** Lead engineering on a platform serving 1M+ users a month and 5,000+ searches and orders: architecture, code review and release decisions.
-- **Platform Architecture:** Take part in architecture and design patterns across the FastAPI supplier-integration layer (Amadeus, Hotelbeds, Flyadeal) and the Laravel booking and B2B finance core.
-- **Design Reviews:** Took part in the design of supplier resilience (circuit breakers, adaptive throttling, backoff), multi-currency B2B wallets on ACID ledgers, and event-driven queues.
-- **B2B Order Operations:** Shipped void, refunds, PNR import, hold orders, invoices and role-based permissions.
-- **Next.js Multi-Tenant Frontend:** Spearheaded a decoupled multi-brand architecture on Vercel with Edge Middleware for subdomain routing and environment-driven S3 CSS asset injection.
-- **High-Speed Autocomplete:** Integrated Meilisearch as an inverted index service via direct Nginx routing.
-- **Mobile Multi-Branding (Destinia, Tripklik):** Developed a React Native architecture with runtime environment injections for white-labeled builds from a singular codebase.
+- **Technical Leadership:** Lead engineering on a travel booking platform serving 1M+ users a month and 5,000+ searches and orders: architecture, code review and release decisions across backend, web and mobile.
+- **Concurrent Search Architecture:** Took part in designing concurrent search across all suppliers (Amadeus, Hotelbeds, Flyadeal) with background workers and queues; clients poll for results as suppliers respond, and circuit breakers isolate failing suppliers so the search returns what arrived.
+- **Search & API Performance:** Hotel and flight results about 4× faster after indexing, polling and queue-based processing; API request/response about 5× faster after moving the Python search service from SQLAlchemy-based JSON to a Rust-based serializer.
+- **Hotel Mapping:** Worked on the Central Station service that maps every hotel across all providers to a single record, so results from different suppliers merge and match quickly.
+- **Order State Machine:** Moved order handling onto an explicit state machine and shipped B2B order operations end to end: void, refunds, PNR import, hold orders, invoices, balances and top-ups.
+- **Laravel Booking & Finance Core:** Built eSIM, baggage protection and blind-choice fares behind feature flags and fixed markup calculations; worked on multi-currency conversion, agency wallets on ACID MySQL ledgers and a payment-gateway factory.
+- **Multi-Tenant Scalability:** One codebase serves the consumer site, the agency portal and several brands, so onboarding a new agency or brand is configuration rather than new code.
+- **Authentication & Permissions:** End-to-end auth across API and web: OTP sign-in, role-based permissions enforced in the API and at the edge, and scoped short-lived tokens for links from AI assistants.
+- **AI Integration:** Built an MCP server connecting the booking engine to Claude and ChatGPT, and worked on a WhatsApp integration with Claude so agencies can continue a booking from chat.
+- **Mobile Multi-Branding:** Led the React Native 0.85 + Expo SDK 56 modernization of the multi-brand apps (Destinia, Tripklik) with EAS multi-brand builds and per-brand runtime configuration.
 
 ### Senior Software Engineer
 **Ivas** — Cairo, Egypt · *Feb 2019 – May 2022*
