@@ -26,7 +26,7 @@ const BASE = import.meta.env.BASE_URL;
 export const profile = {
   name: "Mohamed Mahmoud",
   role: "Technical Lead / Senior Software Engineer",
-  email: "mohammed_hs55@yahoo.com",
+  email: "mohamedjs408@gmail.com",
   phone: "+20 111 231 0567",
   location: "Cairo, Egypt",
   github: "https://github.com/mohamedjs",
@@ -34,12 +34,12 @@ export const profile = {
   avatar: `${BASE}avatar.webp`,
   resume: `${BASE}mohamed-mahmoud-cv.pdf`,
   summary:
-    "Full-stack developer & architecture lover. I build fault-tolerant, polyglot microservices and multi-tenant SaaS platforms — modern, fast and beautiful web applications.",
+    "Technical Lead behind a travel booking platform serving 1M+ users a month. I build fault-tolerant backends (FastAPI, Laravel, Node.js) and fast Next.js and React Native apps.",
 };
 
 export const stats = [
-  { value: "20+", label: "Projects Delivered" },
-  { value: "500+", label: "Orders / Day" },
+  { value: "1M+", label: "Monthly Users" },
+  { value: "5,000+", label: "Searches & Orders" },
   { value: "7+", label: "Years Experience" },
   { value: "4", label: "Countries Served" },
 ];
@@ -81,7 +81,7 @@ export const skillGroups = [
 
 export const experiences: Experience[] = [
   {
-    role: "Technical Lead & Senior Software Engineer",
+    role: "Technical Lead (since Oct 2024) · Senior Software Engineer",
     company: "Tripklik",
     location: "Riyadh, KSA (Remote)",
     period: "Oct 2022 — Present",
@@ -89,7 +89,7 @@ export const experiences: Experience[] = [
     bullets: [
       {
         title: "Polyglot Distributed Architecture",
-        body: "Architected an enterprise-grade travel booking ecosystem — FastAPI for high-concurrency flight/hotel search aggregation, Laravel for transactional booking and B2B financial ledgers.",
+        body: "Architected a travel booking platform serving 1M+ users a month and 5,000+ searches and orders — FastAPI for high-concurrency flight/hotel search aggregation, Laravel for transactional booking and B2B financial ledgers.",
       },
       {
         title: "FastAPI Aggregation & Flight Fulfillment",
@@ -112,8 +112,20 @@ export const experiences: Experience[] = [
         body: "Spearheaded a decoupled multi-brand architecture on Vercel — Edge Middleware for subdomain routing, environment-driven S3 CSS injection, and centralized Axios interceptors.",
       },
       {
+        title: "Frontend Performance",
+        body: "Cut the middleware bundle by 62%, the main app bundle by 14% and First Load JS by 12%; made flight-result filters 7× faster with Map indexes and a virtualized results list.",
+      },
+      {
+        title: "AI Assistants via MCP",
+        body: "Connected the booking engine to Claude and ChatGPT through the Model Context Protocol: live flight and hotel search with agency pricing, and secure deep links back into the portal to book.",
+      },
+      {
+        title: "Auth & Permission Gate",
+        body: "Built the edge-middleware authentication and permission layer (route-to-permission map, OTP enforcement) and scoped single-purpose tokens for AI-originated deep links.",
+      },
+      {
         title: "Mobile Multi-Branding",
-        body: "Developed a React Native architecture with runtime environment injections to ship distinct white-labeled apps (Distinia, Tripklik) from a singular codebase.",
+        body: "Developed a React Native architecture with runtime environment injections to ship distinct white-labeled apps (Destinia, Tripklik) from a singular codebase.",
       },
     ],
     tags: ["FastAPI", "Laravel", "Next.js", "React Native", "Redis", "MySQL", "Meilisearch", "Docker", "Vercel"],

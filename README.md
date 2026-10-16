@@ -12,7 +12,7 @@ High-impact **Technical Lead & Senior Software Engineer** with **7+ years** arch
 
 | | |
 |---|---|
-| 🚀 **20+** Projects Delivered | 💼 **7+** Years Experience |
+| 👥 **1M+** Monthly Users Served | 💼 **7+** Years Experience |
 | 🌍 **4** Countries Served (🇪🇬 🇸🇦 🇦🇪 🇰🇼) | 🧩 **8+** Design Patterns in production |
 
 ---
@@ -99,7 +99,7 @@ Helps locate missing children using facial recognition, matching reported sighti
 - **Advanced State Management & EDA:** Implemented a shared Redis State Machine bridging Python microservices and the PHP booking engine, with event-driven background queues for cross-service auto-booking.
 - **Next.js Multi-Tenant Frontend:** Spearheaded a decoupled multi-brand architecture on Vercel with Edge Middleware for subdomain routing and environment-driven S3 CSS asset injection.
 - **High-Speed Autocomplete:** Integrated Meilisearch as an inverted index service via direct Nginx routing.
-- **Mobile Multi-Branding (Distinia, Tripklik):** Developed a React Native architecture with runtime environment injections for white-labeled builds from a singular codebase.
+- **Mobile Multi-Branding (Destinia, Tripklik):** Developed a React Native architecture with runtime environment injections for white-labeled builds from a singular codebase.
 
 ### Senior Software Engineer
 **Ivas** — Cairo, Egypt · *Feb 2019 – May 2022*
@@ -163,7 +163,7 @@ To update content, edit `src/data/portfolio.ts` — no component changes require
 
 - 🌐 **Portfolio:** [mohamedjs.github.io/mohamedjs](https://mohamedjs.github.io/mohamedjs/)
 - 💼 **LinkedIn:** [mohamed-mahmoud-19ab47122](https://www.linkedin.com/in/mohamed-mahmoud-19ab47122/)
-- 📧 **Email:** [mohammed_hs55@yahoo.com](mailto:mohammed_hs55@yahoo.com)
+- 📧 **Email:** [mohamedjs408@gmail.com](mailto:mohamedjs408@gmail.com)
 - 📱 **Phone / WhatsApp:** [+20 111 231 0567](https://wa.me/201112310567)
 - 📍 **Location:** Cairo, Egypt — open to remote opportunities
 

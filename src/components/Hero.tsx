@@ -111,11 +111,11 @@ export default function Hero() {
               people love.
             </h1>
             <p className="hero-summary">
-              Technical Lead &amp; automation lover.
+              Technical Lead of a travel platform
               <br />
-              I architect fast, fault-tolerant backends
+              serving 1M+ users a month. I architect fast,
               <br />
-              and beautiful web applications.
+              fault-tolerant backends and web apps.
             </p>
             <div className="hero-actions">
               <a className="btn-primary" href="#projects">
