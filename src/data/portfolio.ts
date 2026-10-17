@@ -84,7 +84,7 @@ export const experiences: Experience[] = [
     role: "Technical Lead (since Oct 2024) · Senior Software Engineer",
     company: "Tripklik",
     location: "Riyadh, KSA (Remote)",
-    period: "Oct 2022 — Present",
+    period: "Oct 2021 — Present",
     current: true,
     bullets: [
       {
@@ -134,7 +134,7 @@ export const experiences: Experience[] = [
     role: "Senior Software Engineer",
     company: "Ivas",
     location: "Cairo, Egypt",
-    period: "Feb 2019 — May 2022",
+    period: "Feb 2019 — Jun 2021",
     bullets: [
       {
         title: "Enterprise Telecom Integrations",
@@ -159,7 +159,7 @@ export const experiences: Experience[] = [
     role: "Back-End Developer",
     company: "Grand",
     location: "Cairo, Egypt",
-    period: "Jun 2018 — Oct 2018",
+    period: "Jun 2018 — Dec 2018",
     bullets: [
       {
         title: "RESTful APIs",

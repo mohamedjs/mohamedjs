@@ -89,7 +89,7 @@ Helps locate missing children using facial recognition, matching reported sighti
 
 ## 💼 Professional Experience
 
-### Technical Lead *(Oct 2024 – Present)* & Senior Software Engineer *(Oct 2022 – Oct 2024)*
+### Technical Lead *(Oct 2024 – Present)* & Senior Software Engineer *(Oct 2021 – Oct 2024)*
 **Tripklik** — Riyadh, KSA (Remote)
 
 - **Technical Leadership:** Lead engineering on a travel booking platform serving 1M+ users a month and 5,000+ searches and orders: architecture, code review and release decisions across backend, web and mobile.
@@ -104,14 +104,14 @@ Helps locate missing children using facial recognition, matching reported sighti
 - **Mobile Multi-Branding:** Led the React Native 0.85 + Expo SDK 56 modernization of the multi-brand apps (Destinia, Tripklik) with EAS multi-brand builds and per-brand runtime configuration.
 
 ### Senior Software Engineer
-**Ivas** — Cairo, Egypt · *Feb 2019 – May 2022*
+**Ivas** — Cairo, Egypt · *Feb 2019 – Jun 2021*
 
 - **Enterprise Telecom Integrations:** Directed core backend development for large-scale Ringback Tone delivery networks across major GCC telecom operators (KSA, UAE, Kuwait).
 - **Architecture Evolution:** Shifted production backends from MVC monoliths to clean layered architectures using Laravel and MongoDB.
 - **Team Mentorship:** Led backend squads in adopting best practices for API security, performance profiling, and maintainable code delivery.
 
 ### Back-End Developer
-**Grand** — Cairo, Egypt · *Jun 2018 – Oct 2018*
+**Grand** — Cairo, Egypt · *Jun 2018 – Dec 2018*
 
 - Developed RESTful APIs serving mobile and web applications with a focus on performance and security.
 - Collaborated with frontend teams to define API contracts and ensure optimal data flow.
