@@ -219,6 +219,31 @@ export const projects: Project[] = [
     accent: "#7c5cff",
   },
   {
+    slug: "lura",
+    name: "Lura",
+    tagline: "Voice-First AI Desktop Assistant (Open Source)",
+    description:
+      "Say \"Lura\" and talk: she answers out loud in Egyptian Arabic or English and acts on your computer through apps, Chrome, files, GitHub, Notion and any MCP server. Any LLM as the brain, a hologram face on every screen, shipped for Linux, macOS and Windows.",
+    highlights: [
+      "Streamed speech: she starts talking while the model is still writing",
+      "Interrupt any time by tapping her face or by voice",
+      "MCP connectors that drive your own Chrome, with ask-before-acting rules",
+      "Offline wake word and offline voice fallback",
+    ],
+    stack: ["Python", "Gemini", "Claude", "OpenRouter", "ElevenLabs", "MCP", "Qt / GTK", "PyInstaller"],
+    cover: `${BASE}projects/lura/lura-cover.webp`,
+    gallery: [
+      `${BASE}projects/lura/lura-web.webp`,
+      `${BASE}projects/lura/lura-github.webp`,
+      `${BASE}projects/lura/lura-plot.webp`,
+      `${BASE}projects/lura/lura-memory.webp`,
+      `${BASE}projects/lura/lura-dashboard-ar.webp`,
+      `${BASE}projects/lura/lura-architecture.webp`,
+    ],
+    video: `${BASE}projects/lura/lura-demo.mp4`,
+    accent: "#a78bfa",
+  },
+  {
     slug: "7alm",
     name: "7alm Store",
     tagline: "Arabic E-Commerce + One Inbox for Facebook, Instagram & WhatsApp",
