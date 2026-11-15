@@ -261,6 +261,7 @@ export const projects: Project[] = [
     cover: `${BASE}projects/webcamo/webcamo-cover.webp`,
     gallery: [
       `${BASE}projects/webcamo/webcamo-dashboard.webp`,
+      `${BASE}projects/webcamo/webcamo-call.webp`,
       `${BASE}projects/webcamo/webcamo-downloads.webp`,
       `${BASE}projects/webcamo/webcamo-architecture.webp`,
     ],
